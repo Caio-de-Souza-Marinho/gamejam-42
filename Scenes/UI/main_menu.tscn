@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://d3bwsesg3jm6t"]
+
+[ext_resource type="Script" uid="uid://c4wgec6vbbfsp" path="res://Scenes/UI/main_menu.gd" id="1_5wsvm"]
+[ext_resource type="Texture2D" uid="uid://bjnh3sonwurje" path="res://Sprites/background_tiled.png" id="2_o14dv"]
+[ext_resource type="FontFile" uid="uid://cmkei0r5t77jr" path="res://Font/Lilian.ttf" id="3_u7lva"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mrfpk"]
+font = ExtResource("3_u7lva")
+font_size = 48
+
+[node name="MainMenu" type="Control" unique_id=1098745774]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5wsvm")
+
+[node name="Background" type="TextureRect" parent="." unique_id=275212020]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_o14dv")
+
+[node name="Title" type="Label" parent="." unique_id=1350493663]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.0
+offset_top = 10.0
+offset_right = 80.0
+offset_bottom = 109.0
+grow_horizontal = 2
+text = "GLITCH
+GAME"
+label_settings = SubResource("LabelSettings_mrfpk")
+horizontal_alignment = 1
