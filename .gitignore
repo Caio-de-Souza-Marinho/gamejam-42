@@ -1,0 +1,44 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot import cache
+.import/
+.godot/
+
+# Exported builds
+export/
+build/
+bin/
+
+# Export presets (optional)
+# Uncomment if each developer has their own export settings
+# export_presets.cfg
+
+# Mono / C#
+.mono/
+data_*/
+
+# Crash logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains IDEs
+.idea/
+
+# Visual Studio
+.vs/
+
+# Vim
+*.swp
+*.swo
