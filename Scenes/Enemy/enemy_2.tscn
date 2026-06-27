@@ -43,9 +43,10 @@ size = Vector2(34, 30)
 size = Vector2(33, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sivfp"]
-radius = 23.0
+radius = 31.016125
 
 [node name="Enemy2" unique_id=1271779719 instance=ExtResource("1_t4rl3")]
+max_health = 6.0
 
 [node name="AnimSprite" parent="." index="1" unique_id=480237589]
 sprite_frames = SubResource("SpriteFrames_ou7wb")

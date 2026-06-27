@@ -43,6 +43,7 @@ size = Vector2(31, 32)
 size = Vector2(31, 32)
 
 [node name="Enemy4" unique_id=1271779719 instance=ExtResource("1_oqcrg")]
+max_health = 10.0
 
 [node name="AnimSprite" parent="." index="1" unique_id=480237589]
 sprite_frames = SubResource("SpriteFrames_ukm2e")

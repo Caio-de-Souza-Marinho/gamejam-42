@@ -46,7 +46,7 @@ size = Vector2(26, 24)
 size = Vector2(34, 30)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqetf"]
-radius = 20.0
+radius = 31.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scg6k"]
 bg_color = Color(0.34337106, 3.2789075e-07, 0.052186295, 1)
@@ -57,6 +57,7 @@ bg_color = Color(0.89183146, 0.00013055466, 0.19673446, 1)
 [node name="Enemy1" type="CharacterBody2D" unique_id=1271779719]
 collision_layer = 4
 script = ExtResource("1_45oeo")
+max_health = 2.0
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1345902638]
 self_modulate = Color(1, 1, 1, 0.7058824)

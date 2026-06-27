@@ -8,10 +8,10 @@
 script = ExtResource("2_d6mai")
 weapon_name = "Uzi"
 icon = ExtResource("1_ywvm0")
-damage = 1.0
+damage = 0.5
 cooldown = 0.2
 mana_cost = 1.0
 spread = 8.0
-bullet_speed = 300.0
+bullet_speed = 500.0
 bullet_scene = ExtResource("1_d6mai")
 metadata/_custom_type_script = "uid://c3dvfcxt8vg6h"
