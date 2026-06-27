@@ -27,6 +27,7 @@ var all_weapons: Dictionary[String, PackedScene] = {
 
 var selected_player: PlayerData
 var selected_weapon: WeaponData
+var coins: float
 
 func _ready() -> void:
 	load_data()
