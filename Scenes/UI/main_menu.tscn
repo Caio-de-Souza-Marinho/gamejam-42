@@ -6,6 +6,7 @@
 [ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_u7lva"]
 [ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="5_4pqbp"]
 [ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="6_gih0s"]
+[ext_resource type="AudioStream" uid="uid://dtxhputnlac6" path="res://Sounds/select-a.ogg" id="7_gih0s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mrfpk"]
 shader = ExtResource("2_u7lva")
@@ -99,7 +100,7 @@ texture_normal = SubResource("AtlasTexture_k33u3")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainButtons/VBoxContainer/Play/PlayButton" unique_id=67471457]
+[node name="PlayLabel" type="Label" parent="MainButtons/VBoxContainer/Play/PlayButton" unique_id=67471457]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -132,7 +133,7 @@ texture_normal = SubResource("AtlasTexture_k33u3")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainButtons/VBoxContainer/Settings/SettingsButton" unique_id=2025482554]
+[node name="SettingsLabel" type="Label" parent="MainButtons/VBoxContainer/Settings/SettingsButton" unique_id=2025482554]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -165,7 +166,7 @@ texture_normal = SubResource("AtlasTexture_k33u3")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="MainButtons/VBoxContainer/Quit/QuitButton" unique_id=2134461552]
+[node name="QuitLabel" type="Label" parent="MainButtons/VBoxContainer/Quit/QuitButton" unique_id=2134461552]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -222,14 +223,15 @@ texture_normal = SubResource("AtlasTexture_lrjdf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="SettingsButtons/VBoxContainer/Music/MusicButton" unique_id=706447681]
+[node name="MusicLabel" type="Label" parent="SettingsButtons/VBoxContainer/Music/MusicButton" unique_id=706447681]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "MUSIC"
+text = "MUSIC: ON"
 label_settings = ExtResource("6_gih0s")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -255,14 +257,15 @@ texture_normal = SubResource("AtlasTexture_lrjdf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="SettingsButtons/VBoxContainer/SFX/SFXButton" unique_id=966878242]
+[node name="SFXLabel" type="Label" parent="SettingsButtons/VBoxContainer/SFX/SFXButton" unique_id=966878242]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "SFX"
+text = "SFX: ON"
 label_settings = ExtResource("6_gih0s")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -288,7 +291,8 @@ texture_normal = SubResource("AtlasTexture_lrjdf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="SettingsButtons/VBoxContainer/Window/WindowButton" unique_id=1456483357]
+[node name="WindowLabel" type="Label" parent="SettingsButtons/VBoxContainer/Window/WindowButton" unique_id=1456483357]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -321,7 +325,7 @@ texture_normal = SubResource("AtlasTexture_lrjdf")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="SettingsButtons/VBoxContainer/Back/BackButton" unique_id=1692492784]
+[node name="BackLabel" type="Label" parent="SettingsButtons/VBoxContainer/Back/BackButton" unique_id=1692492784]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -332,6 +336,10 @@ text = "BACK"
 label_settings = ExtResource("6_gih0s")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UISound" type="AudioStreamPlayer" parent="." unique_id=94542221]
+stream = ExtResource("7_gih0s")
+bus = &"SFX"
 
 [connection signal="pressed" from="MainButtons/VBoxContainer/Play/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MainButtons/VBoxContainer/Settings/SettingsButton" to="." method="_on_settings_button_pressed"]
