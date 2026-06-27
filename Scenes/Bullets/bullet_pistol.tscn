@@ -43,7 +43,7 @@ animations = [{
 radius = 3.0
 
 [node name="BulletPistol" type="Area2D" unique_id=1588055120]
-collision_layer = 9
+collision_layer = 13
 collision_mask = 5
 script = ExtResource("1_qnlom")
 

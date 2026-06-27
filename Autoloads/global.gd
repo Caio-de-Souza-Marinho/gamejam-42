@@ -4,6 +4,7 @@ var save_path = "user://save.json"
 
 const SPAWN_MARKER_SCENE = preload("res://Scenes/Effects/spawn_marker.tscn")
 const DEAD_PARTICLE_SCENE = preload("uid://dhg2agreu5c6d")
+const HIT_MATERIAL = preload("uid://delosluq2m501")
 
 
 var settings: Dictionary = {
