@@ -8,5 +8,5 @@ script = ExtResource("1_fp5lk")
 level_data = ExtResource("2_6o3nl")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2064702034]
-position = Vector2(328, 149)
+position = Vector2(-10, 3)
 zoom = Vector2(0.2, 0.2)
