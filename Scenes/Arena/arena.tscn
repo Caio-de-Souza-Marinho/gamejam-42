@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://cln1fh0persax" path="res://Scenes/Arena/arena.gd" id="1_fp5lk"]
 [ext_resource type="Resource" uid="uid://p3gujvnw4bfv" path="res://Data/Level/level_01.tres" id="2_6o3nl"]
 [ext_resource type="Texture2D" uid="uid://b5o6og4r1humu" path="res://Sprites/Weapons/Tiles/tile_0025.png" id="2_t7yvt"]
+[ext_resource type="Script" uid="uid://brbdra02r2cna" path="res://Data/Level/level_data.gd" id="3_0ibrr"]
 [ext_resource type="PackedScene" uid="uid://bk017gig7dc7p" path="res://Scenes/UI/hud.tscn" id="3_6o3nl"]
 [ext_resource type="PackedScene" uid="uid://dmjkb2av14sfd" path="res://Scenes/Player/player_dog.tscn" id="4_rm3sm"]
 [ext_resource type="Script" uid="uid://cv7j2d8k25mbi" path="res://Scenes/Arena/enemy_spawner.gd" id="5_fsjwy"]
@@ -12,8 +13,10 @@
 [node name="Arena" type="Node2D" unique_id=205556929]
 script = ExtResource("1_fp5lk")
 arena_cursor = ExtResource("2_t7yvt")
-level_data = ExtResource("2_6o3nl")
+levels = Array[ExtResource("3_0ibrr")]([ExtResource("2_6o3nl")])
 player_scene = ExtResource("4_rm3sm")
+
+[node name="Dungeon" type="Node2D" parent="." unique_id=2094297249]
 
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=356574076]
 script = ExtResource("5_fsjwy")

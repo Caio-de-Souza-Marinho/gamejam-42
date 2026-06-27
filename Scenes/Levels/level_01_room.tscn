@@ -84,4 +84,6 @@ shape = SubResource("RectangleShape2D_5mnrw")
 [node name="PlayerSpawnPos" type="Marker2D" parent="." unique_id=1991899184]
 position = Vector2(0, 11)
 
+[node name="PortalPos" type="Marker2D" parent="." unique_id=2054998538]
+
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
