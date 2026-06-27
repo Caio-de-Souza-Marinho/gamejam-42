@@ -2,6 +2,10 @@ extends Node
 
 var save_path = "user://save.json"
 
+const SPAWN_MARKER_SCENE = preload("res://Scenes/Effects/spawn_marker.tscn")
+const DEAD_PARTICLE_SCENE = preload("uid://dhg2agreu5c6d")
+
+
 var settings: Dictionary = {
 	"music": true,
 	"sfx": true,
@@ -35,3 +39,9 @@ func load_data() -> void:
 	var data = JSON.parse_string(json)
 	file.close()
 	settings = data
+
+func create_dead_particle(texture: Texture2D, pos: Vector2) -> void:
+	var particle = DEAD_PARTICLE_SCENE.instantiate() as GPUParticles2D
+	get_tree().root.add_child(particle)
+	particle.global_position = pos
+	particle.texture = texture
