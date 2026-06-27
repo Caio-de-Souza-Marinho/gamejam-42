@@ -12,7 +12,8 @@ scale = Vector2(1.5, 1.5)
 [node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=1218593482]
 unique_name_in_owner = true
 
-[node name="Marker2D" type="Marker2D" parent="Pivot" unique_id=170034552]
+[node name="FirePos" type="Marker2D" parent="Pivot" unique_id=170034552]
+unique_name_in_owner = true
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="." unique_id=1213862488]
 stream = ExtResource("1_sekn8")
