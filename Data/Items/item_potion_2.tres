@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bpby1w5qmst6w"]
+
+[ext_resource type="Script" uid="uid://bs6j20oqrfuwv" path="res://Data/Items/item_data.gd" id="1_17ga8"]
+[ext_resource type="Texture2D" uid="uid://0poobuecm0un" path="res://Sprites/Items/Item_White1.png" id="1_dxr7h"]
+
+[resource]
+script = ExtResource("1_17ga8")
+icon = ExtResource("1_dxr7h")
+id = "Potion"
+name = "Potion + 2"
+value = 2.0
+price = 3.0
+description = "+2 health"
+metadata/_custom_type_script = "uid://bs6j20oqrfuwv"
