@@ -37,6 +37,15 @@ func register_titles() -> void:
 	for title in title_data.get_used_cells():
 		titles.append(title)
 
+func create_props(data: LevelData) -> void:
+	for i in data.max_props_per_room:
+		var title_coord: Vector2i = titles.pick_random()
+		var tile_position: Vector2 = title_data.map_to_local(title_coord)
+		var random_prop: PackedScene = data.props.pick_random()
+		var instance: Area2D = random_prop.instantiate()
+		instance.position = tile_position
+		add_child(instance)
+
 func lock_room() -> void:
 	for  direction in clear_door_nodes:
 		var wall_door = room_walls[direction]
