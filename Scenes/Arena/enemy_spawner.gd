@@ -30,8 +30,10 @@ func spawn_enemies(data: LevelData, room: LevelRoom) -> void:
 		enemy.global_position = spawn_global_pos
 	
 func _on_enemy_die() -> void:
+	if enemies_killed <= 0:
+		return
 	enemies_killed -= 1
-	if enemies_killed <= enemies.size():
+	if enemies_killed <= 0:
 		EventBus.on_room_cleared.emit()
 		enemies.clear()
 		enemies_killed = 0
