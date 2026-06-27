@@ -169,9 +169,11 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 			room.lock_room()
 
 func load_game_selection() -> void:
-	var player = Global.get_player().instantiate()
+	var player: Player = Global.get_player().instantiate()
+	add_child(player)
+	player.weapon_controller.equip_weapon()
+	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
-
-	add_child(player)
+	
 	player.global_position = spawn_pos.global_position
