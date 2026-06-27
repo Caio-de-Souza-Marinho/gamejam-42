@@ -18,6 +18,17 @@ func setup(item_data) -> void:
 	glow.self_modulate = get_rarity_color()
 	price.text = "[code][img=10]Sprites/coin.png[/img][/code] %s" % data.price
 	
+func buy_item() -> void:
+	if not data: return
+	match data.id:
+		"Potion":
+			Global.player_ref.health_component.heal(data.value)
+	queue_free()
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") and can_buy_item:
+		buy_item()
+	
 func get_rarity_color() -> Color:
 	match data.rarity:
 		"Common":

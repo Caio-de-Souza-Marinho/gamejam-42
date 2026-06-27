@@ -36,7 +36,7 @@ func load_selection_items() -> void:
 		card.set_data(data)
 
 func _on_play_button_pressed() -> void:
-	if not Global.selected_player and not Global.selected_weapon:
+	if not Global.selected_player or not Global.selected_weapon:
 		return
 	
 	ui_sound.play()
