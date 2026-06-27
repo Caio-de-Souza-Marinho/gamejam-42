@@ -153,25 +153,21 @@ func find_coord_from_room(room: LevelRoom) -> Vector2i:
 			return coord
 	return Vector2i.MAX
 
-func _on_player_room_entered(room: LevelRoom) -> void:
-	current_room = room
-	if not room.is_cleared:
-		room.lock_room()
+func load_game_selection() -> void:
+	var player_i = Global.get_player().instantiate()
+	var first_room: LevelRoom = grid[Vector2i.ZERO]
+	var spawn_pos: Marker2D = first_room.player_spawn_pos
 
+	add_child(player_i)
+	player_i.global_position = spawn_pos.global_position
+
+func _on_player_room_entered(room: LevelRoom) -> void:
 	if room != current_room:
 		current_room = room
-	
+		
 		var absolute_coord = find_coord_from_room(room)
 		var relativa_coord = absolute_coord - start_room_coord
 		map_controller.update_on_room_entered(relativa_coord)
 		
-		if not room.is_cleared:
-			room.lock_room()
-
-func load_game_selection() -> void:
-	var player = Global.get_player().instantiate()
-	var first_room: LevelRoom = grid[Vector2i.ZERO]
-	var spawn_pos: Marker2D = first_room.player_spawn_pos
-
-	add_child(player)
-	player.global_position = spawn_pos.global_position
+	if not room.is_cleared:
+		room.lock_room()
