@@ -21,6 +21,7 @@ script = ExtResource("6_qnyor")
 metadata/_custom_type_script = "uid://ckjuwyg70fet3"
 
 [node name="MapController" type="Control" parent="UI" unique_id=1963855698]
+visibility_layer = 7
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 3
 anchors_preset = 1

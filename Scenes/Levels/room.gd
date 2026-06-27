@@ -10,6 +10,7 @@ class_name LevelRoom
 
 @onready var title_data: TileMapLayer = $TileData
 
+@onready var player_spawn_pos: Marker2D = $PlayerSpawnPos
 
 @onready var clear_door_nodes: Dictionary[Vector2i, TileMapLayer] = {
 	Vector2i.UP: %DoorUP,

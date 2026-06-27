@@ -43,6 +43,11 @@ func _ready() -> void:
 	first_room.is_cleared = true
 	# ------------------------
 
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		current_room.unlock_room()
+		
 func spawn_player() -> void:
 	player = player_scene.instantiate()
 	var start_room: LevelRoom = grid[start_room_coord]
@@ -165,4 +170,8 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 
 func load_game_selection() -> void:
 	var player = Global.get_player().instantiate()
+	var first_room: LevelRoom = grid[Vector2i.ZERO]
+	var spawn_pos: Marker2D = first_room.player_spawn_pos
+
 	add_child(player)
+	player.global_position = spawn_pos.global_position
