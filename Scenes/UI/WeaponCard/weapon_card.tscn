@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://lo1pyqpcogwy"]
+
+[ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="1_1ovoo"]
+[ext_resource type="Texture2D" uid="uid://cqvwy8c5l0aod" path="res://Sprites/Weapons/Tiles/tile_0001.png" id="2_8nxtn"]
+[ext_resource type="Script" uid="uid://bkgchpd6cd240" path="res://Scenes/UI/WeaponCard/weapon_card.gd" id="2_o5xhw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5xhw"]
+atlas = ExtResource("1_1ovoo")
+region = Rect2(191.87979, -0.15074158, 48.59659, 48.357204)
+
+[node name="WeaponCard" type="TextureButton" unique_id=365778487]
+texture_normal = SubResource("AtlasTexture_o5xhw")
+stretch_mode = 5
+script = ExtResource("2_o5xhw")
+
+[node name="Icon" type="TextureRect" parent="." unique_id=497444956]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_8nxtn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=1683122316]
