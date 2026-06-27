@@ -2,6 +2,8 @@ extends Node
 
 var save_path = "user://save.json"
 
+const EXPLOSION_EFFECT_SCENE = preload("res://Scenes/Effects/explosion_effect.tscn")
+
 const SPAWN_MARKER_SCENE = preload("res://Scenes/Effects/spawn_marker.tscn")
 const DEAD_PARTICLE_SCENE = preload("uid://dhg2agreu5c6d")
 
@@ -35,6 +37,12 @@ func get_player() -> PackedScene:
 	
 func get_weapon() -> PackedScene:
 	return all_weapons[selected_weapon.weapon_name]
+
+func create_explosion(pos: Vector2) -> void:
+	var explosion: Node2D =  EXPLOSION_EFFECT_SCENE.instantiate()
+	explosion.global_position = pos
+	get_tree().root.add_child(explosion)
+	
 
 func save_data() -> void:
 	var save = settings.duplicate()

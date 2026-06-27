@@ -36,14 +36,24 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltq7f"]
-size = Vector2(16, 18)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqcrg"]
+size = Vector2(31, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5c6f1"]
+size = Vector2(31, 32)
 
 [node name="Enemy4" unique_id=1271779719 instance=ExtResource("1_oqcrg")]
 
 [node name="AnimSprite" parent="." index="1" unique_id=480237589]
 sprite_frames = SubResource("SpriteFrames_ukm2e")
 
+[node name="CollisionShape2D" parent="." index="2" unique_id=1815814606]
+position = Vector2(0.5, -10)
+shape = SubResource("RectangleShape2D_oqcrg")
+
 [node name="CollisionShape2D" parent="PlayerDetector" parent_id_path=PackedInt32Array(443571034) index="0" unique_id=972143763]
-position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_ltq7f")
+position = Vector2(0.5, -10)
+shape = SubResource("RectangleShape2D_5c6f1")
+
+[node name="CollisionShape2D" parent="EnemyDetector" parent_id_path=PackedInt32Array(1440714875) index="0" unique_id=491389231]
+position = Vector2(1, -10)
