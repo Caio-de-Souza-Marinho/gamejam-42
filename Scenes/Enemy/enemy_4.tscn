@@ -38,10 +38,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ltq7f"]
-size = Vector2(16, 18)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqcrg"]
+size = Vector2(31, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5c6f1"]
+size = Vector2(31, 32)
 
 [node name="Enemy4" unique_id=1271779719 instance=ExtResource("1_oqcrg")]
+max_health = 10.0
 weapon = ExtResource("2_aw1f6")
 
 [node name="AnimSprite" parent="." index="1" unique_id=480237589]

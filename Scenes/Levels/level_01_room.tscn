@@ -85,6 +85,7 @@ shape = SubResource("RectangleShape2D_5mnrw")
 [node name="PlayerSpawnPos" type="Marker2D" parent="." unique_id=1991899184]
 position = Vector2(0, 11)
 
+[node name="PortalPos" type="Marker2D" parent="." unique_id=2054998538]
 [node name="Coin" parent="." unique_id=820842847 instance=ExtResource("3_ony35")]
 
 [node name="Coin2" parent="." unique_id=574572997 instance=ExtResource("3_ony35")]

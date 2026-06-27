@@ -2,11 +2,14 @@ extends Node2D
 
 # ---------------------- CURSOR --------------------
 @export var arena_cursor: Texture2D
+@export var levels: Array[LevelData]
 
 @onready var map_controller: MapController = $UI/MapController
 @onready var enemy_spawner: EnemySpawner = $EnemySpawner
 @onready var total_coins: Label = %TotalCoins
 @onready var coin_sound: AudioStreamPlayer = $CoinSound
+
+@onready var dungeon: Node2D = $Dungeon
 
 # -------------------- MAP GENERATION ----------------
 
@@ -17,8 +20,11 @@ var grid_cell_size: Vector2i
  
 var player: Player
 var current_room: LevelRoom
+var level_data: LevelData
 
-@export var level_data: LevelData
+var current_level_index: int = 0
+var current_sub_level: int = 1
+
 @export var player_scene: PackedScene
 
 # -----------------x-----------------------------------
@@ -27,12 +33,26 @@ func _ready() -> void:
 	# ------ EVENTS(SIGNAL) ------
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	EventBus.on_room_cleared.connect(_on_room_cleared)
+	EventBus.on_portal_reached.connect(_on_portal_reached)
 	EventBus.on_coin_picked.connect(_on_coin_picked)
 	
+	level_data = levels[0]
 	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
+	generate_dungeon()
+
+
+func generate_dungeon() -> void:
 	
-	# ------- MAP GEN ---------
+	for child in dungeon.get_children():
+		child.queue_free()
+	
+	await get_tree().process_frame
+	
+	if player:
+		player.queue_free()
+		Global.player_ref = null
+		# ------- MAP GEN ---------
 	grid_cell_size = Vector2i(
 		level_data.room_size.x + level_data.corridor_size.x,
 		level_data.room_size.y + level_data.corridor_size.y
@@ -47,7 +67,6 @@ func _ready() -> void:
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	first_room.is_cleared = true
 	# ------------------------
-
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -98,10 +117,14 @@ func create_rooms() -> void:
 	for room_coord: Vector2i in grid.keys():
 		var room_instance: LevelRoom = level_data.room_scene.instantiate()
 		room_instance.position = room_coord * grid_cell_size
-		add_child(room_instance)
+		dungeon.add_child(room_instance)
 		room_instance.create_props(level_data)
 		
 		grid[room_coord] = room_instance
+		
+		if room_coord == end_room_coord:
+			room_instance.is_cleared = true
+			room_instance.setup_room_as_portal()
 		connect_rooms(room_coord, room_instance)
 
 func create_corridors() -> void:
@@ -116,7 +139,7 @@ func create_corridors() -> void:
 			corridor.position = room_instance.position + Vector2(
 				grid_cell_size.x / 2.0, 0
 			)
-			add_child(corridor)
+			dungeon.add_child(corridor)
 		#Down cnn
 		var down_neighbor = room_coord + Vector2i.DOWN
 		if grid.has(down_neighbor):
@@ -124,7 +147,7 @@ func create_corridors() -> void:
 			corridor.position = room_instance.position + Vector2(
 				0, grid_cell_size.x / 2.0
 			)
-			add_child(corridor)
+			dungeon.add_child(corridor)
 		
 
 func connect_rooms(room_coord: Vector2i, room_instance: LevelRoom) -> void:
@@ -170,7 +193,6 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 	if not room.is_cleared:
 		room.lock_room()
 		enemy_spawner.spawn_enemies(level_data, room)
-			
 
 func load_game_selection() -> void:
 	var player: Player = Global.get_player().instantiate()
@@ -179,13 +201,31 @@ func load_game_selection() -> void:
 	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
-	
-	player.global_position = spawn_pos.global_position
-	Global.player_ref = player
+	add_child(player_i)
+	player_i.global_position = spawn_pos.global_position
+	player_i.weapon_controller.equip_weapon()
+	Global.player_ref = player_i
 
 func _on_room_cleared() -> void:
 	current_room.unlock_room()
 	current_room.is_cleared = true
 	
+func _on_portal_reached() -> void:
+	await Transition.show_transition_in().finished
+	
+	if current_sub_level < level_data.num_sub_levels:
+		current_sub_level += 1
+		generate_dungeon()
+	else:
+		current_level_index += 1
+		if current_level_index < levels.size():
+			current_sub_level = 1
+			level_data = levels[current_level_index]
+			generate_dungeon()
+		else:
+			print("No more levels")
+			Transition.transition_to("res://Scenes/UI/main_menu.tscn")
+	
+	await Transition.show_transition_out().finished
 func _on_coin_picked() -> void:
 	coin_sound.play()
