@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://boxqogmplufh5"]
 
 [ext_resource type="Script" uid="uid://c2qs63gn4sved" path="res://Scenes/Player/player.gd" id="1_jfsk2"]
-[ext_resource type="Script" uid="uid://b042vsc4v8jhi" path="res://Scenes/Player/weapon_controller.gd" id="2_kxl1r"]
 [ext_resource type="PackedScene" uid="uid://cefm7eajuecd2" path="res://Scenes/Components/health_component.tscn" id="2_kxl1r"]
 
 [node name="PlayerBase" type="CharacterBody2D" unique_id=310268074]
+collision_layer = 2
 script = ExtResource("1_jfsk2")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=862894412]
@@ -19,7 +19,7 @@ unique_name_in_owner = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1127205163]
 
 [node name="WeaponController" type="Node2D" parent="." unique_id=644049850]
-script = ExtResource("2_kxl1r")
+
 [node name="HealthComponent" parent="." unique_id=2114627261 instance=ExtResource("2_kxl1r")]
 
 [connection signal="on_unit_damaged" from="HealthComponent" to="." method="_on_health_component_on_unit_damaged"]

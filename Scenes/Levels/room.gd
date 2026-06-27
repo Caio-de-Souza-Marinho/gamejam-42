@@ -14,7 +14,7 @@ class_name LevelRoom
 @onready var clear_door_nodes: Dictionary[Vector2i, TileMapLayer] = {
 	Vector2i.UP: %DoorUP,
 	Vector2i.RIGHT: %DoorRight,
-	Vector2i.DOWN: %DoorRight,
+	Vector2i.DOWN: %DoorDown,
 	Vector2i.LEFT: %DoorLeft 
 }
 
@@ -57,3 +57,7 @@ func open_wall(direction: Vector2i) -> void:
 func close_all_walls() -> void:
 	for key in room_walls:
 		room_walls[key].enabled = true
+
+
+func _on_player_detector_body_entered(body: Node2D) -> void:
+	EventBus.on_player_room_entered.emit(self)

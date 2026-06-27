@@ -12,6 +12,6 @@ player_scene = ExtResource("4_rm3sm")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2064702034]
 position = Vector2(328, 149)
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.2, 0.2)
 
 [node name="HUD" parent="." unique_id=2009639706 instance=ExtResource("3_6o3nl")]
