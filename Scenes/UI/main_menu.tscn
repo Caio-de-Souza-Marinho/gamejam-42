@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://d3bwsesg3jm6t"]
 
 [ext_resource type="Script" uid="uid://c4wgec6vbbfsp" path="res://Scenes/UI/main_menu.gd" id="1_5wsvm"]
-[ext_resource type="Texture2D" uid="uid://bjnh3sonwurje" path="res://Sprites/background_tiled.png" id="2_o14dv"]
-[ext_resource type="Shader" uid="uid://kuq6jnwgph5i" path="res://Shaders/background.gdshader" id="2_u7lva"]
+[ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_4pqbp"]
 [ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_u7lva"]
 [ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="5_4pqbp"]
 [ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="6_gih0s"]
@@ -11,10 +10,6 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_gih0s"]
 atlas = ExtResource("5_4pqbp")
 region = Rect2(80, 65, 15, 13)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mrfpk"]
-shader = ExtResource("2_u7lva")
-shader_parameter/speed = 0.5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k33u3"]
 atlas = ExtResource("5_4pqbp")
@@ -34,16 +29,8 @@ grow_vertical = 2
 script = ExtResource("1_5wsvm")
 menu_cursor = SubResource("AtlasTexture_gih0s")
 
-[node name="Background" type="TextureRect" parent="." unique_id=275212020]
-material = SubResource("ShaderMaterial_mrfpk")
+[node name="Background" parent="." unique_id=505412356 instance=ExtResource("3_4pqbp")]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_o14dv")
-stretch_mode = 1
 
 [node name="Title" type="Label" parent="." unique_id=1350493663]
 layout_mode = 1
