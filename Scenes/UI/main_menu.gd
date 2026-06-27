@@ -29,6 +29,7 @@ func update_fullscreen(is_on: bool) -> void:
 func _on_play_button_pressed() -> void:
 	ui_sound.play()
 	Transition.transition_to("res://Scenes/CharacterSelection/character_selection.tscn")
+	#Transition.transition_to("res://Scenes/Arena/arena_caio.tscn")
 
 func _on_settings_button_pressed() -> void:
 	ui_sound.play()
