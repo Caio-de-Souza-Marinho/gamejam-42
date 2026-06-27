@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dk1dipuj70lj1" path="res://Scenes/Levels/room.gd" id="1_5mnrw"]
 [ext_resource type="TileSet" uid="uid://chjh6xqdlqlpn" path="res://Extra/level_01_tileset.tres" id="2_5mnrw"]
+[ext_resource type="PackedScene" uid="uid://dr0dvvc3gegxm" path="res://Scenes/Items/coin.tscn" id="3_ony35"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5mnrw"]
 size = Vector2(290, 260)
@@ -83,5 +84,17 @@ shape = SubResource("RectangleShape2D_5mnrw")
 
 [node name="PlayerSpawnPos" type="Marker2D" parent="." unique_id=1991899184]
 position = Vector2(0, 11)
+
+[node name="PortalPos" type="Marker2D" parent="." unique_id=2054998538]
+[node name="Coin" parent="." unique_id=820842847 instance=ExtResource("3_ony35")]
+
+[node name="Coin2" parent="." unique_id=574572997 instance=ExtResource("3_ony35")]
+position = Vector2(0, 66)
+
+[node name="Coin3" parent="." unique_id=875096840 instance=ExtResource("3_ony35")]
+position = Vector2(90, 0)
+
+[node name="Coin4" parent="." unique_id=61571943 instance=ExtResource("3_ony35")]
+position = Vector2(-100, 0)
 
 [connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]

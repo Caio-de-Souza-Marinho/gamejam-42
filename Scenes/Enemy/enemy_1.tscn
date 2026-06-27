@@ -1,0 +1,113 @@
+[gd_scene format=3 uid="uid://cc71wd3xj3i8s"]
+
+[ext_resource type="Script" uid="uid://dn7uqllhyh614" path="res://Scenes/Enemy/enemy.gd" id="1_45oeo"]
+[ext_resource type="AudioStream" uid="uid://dmai3vjk5si8m" path="res://Sounds/enemy_hurt_1.ogg" id="1_aex4u"]
+[ext_resource type="Texture2D" uid="uid://dawvmsgg5mc6o" path="res://Sprites/Shadow.png" id="2_iqetf"]
+[ext_resource type="Texture2D" uid="uid://c4stgcaqqu7as" path="res://Sprites/Enemies/Sprites/tile_0003.png" id="3_scg6k"]
+[ext_resource type="Texture2D" uid="uid://bmi1eu80faffk" path="res://Sprites/Enemies/Sprites/tile_0002.png" id="4_kdhqq"]
+[ext_resource type="Texture2D" uid="uid://cgvslb1dnigc8" path="res://Sprites/Enemies/Sprites/tile_0000.png" id="5_vuacj"]
+[ext_resource type="Texture2D" uid="uid://d2gowyxbvkf5g" path="res://Sprites/Enemies/Sprites/tile_0001.png" id="6_s3oqn"]
+[ext_resource type="PackedScene" uid="uid://cefm7eajuecd2" path="res://Scenes/Components/health_component.tscn" id="8_iqetf"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhj4b"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_scg6k")
+}],
+"loop": false,
+"name": &"die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kdhqq")
+}],
+"loop": false,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_vuacj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_s3oqn")
+}],
+"loop": true,
+"name": &"move",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8m2ed"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_45oeo"]
+radius = 9.055386
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iqetf"]
+radius = 31.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scg6k"]
+bg_color = Color(0.34337106, 3.2789075e-07, 0.052186295, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kdhqq"]
+bg_color = Color(0.89183146, 0.00013055466, 0.19673446, 1)
+
+[node name="Enemy1" type="CharacterBody2D" unique_id=1271779719]
+collision_layer = 4
+script = ExtResource("1_45oeo")
+max_health = 2.0
+
+[node name="Shadow" type="Sprite2D" parent="." unique_id=1345902638]
+self_modulate = Color(1, 1, 1, 0.7058824)
+scale = Vector2(1.5, 1)
+texture = ExtResource("2_iqetf")
+
+[node name="AnimSprite" type="AnimatedSprite2D" parent="." unique_id=480237589]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_bhj4b")
+animation = &"move"
+autoplay = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815814606]
+position = Vector2(1, -4)
+shape = SubResource("RectangleShape2D_iqetf")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=443571034]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=972143763]
+position = Vector2(1, -4)
+shape = SubResource("RectangleShape2D_scg6k")
+
+[node name="EnemyDetector" type="Area2D" parent="." unique_id=1440714875]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" unique_id=491389231]
+position = Vector2(1, -3)
+shape = SubResource("CircleShape2D_iqetf")
+debug_color = Color(0.9137255, 0.20392157, 0.5411765, 0.30588236)
+
+[node name="HurtSound" type="AudioStreamPlayer" parent="." unique_id=921686315]
+stream = ExtResource("1_aex4u")
+bus = &"SFX"
+
+[node name="HealthBar" type="ProgressBar" parent="." unique_id=447061744]
+custom_minimum_size = Vector2(20, 2)
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 10.0
+offset_bottom = -16.0
+theme_override_styles/background = SubResource("StyleBoxFlat_scg6k")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kdhqq")
+max_value = 1.0
+value = 1.0
+show_percentage = false
+
+[node name="HealthComponent" parent="." unique_id=2114627261 instance=ExtResource("8_iqetf")]
+
+[connection signal="body_entered" from="PlayerDetector" to="." method="_on_player_detector_body_entered"]
+[connection signal="on_unit_damaged" from="HealthComponent" to="." method="_on_health_component_on_unit_damaged"]
+[connection signal="on_unit_dead" from="HealthComponent" to="." method="_on_health_component_on_unit_dead"]

@@ -9,8 +9,8 @@ class_name LevelRoom
 }
 
 @onready var title_data: TileMapLayer = $TileData
-
 @onready var player_spawn_pos: Marker2D = $PlayerSpawnPos
+@onready var portal_pos: Marker2D = $PortalPos
 
 @onready var clear_door_nodes: Dictionary[Vector2i, TileMapLayer] = {
 	Vector2i.UP: %DoorUP,
@@ -38,6 +38,10 @@ func register_titles() -> void:
 	for title in title_data.get_used_cells():
 		titles.append(title)
 
+func get_free_spawn_position() -> Vector2:
+	var title_cood: Vector2i = titles.pick_random()
+	return title_data.map_to_local(title_cood)
+	
 func create_props(data: LevelData) -> void:
 	for i in data.max_props_per_room:
 		var title_coord: Vector2i = titles.pick_random()
@@ -47,6 +51,12 @@ func create_props(data: LevelData) -> void:
 		instance.position = tile_position
 		add_child(instance)
 
+func setup_room_as_portal() -> void:
+	var portal = Global.PORTAL_SCENE.instantiate() as Node2D
+	add_child(portal)
+	portal.global_position = portal_pos.global_position
+	
+	
 func lock_room() -> void:
 	for  direction in clear_door_nodes:
 		var wall_door = room_walls[direction]
@@ -67,7 +77,6 @@ func open_wall(direction: Vector2i) -> void:
 func close_all_walls() -> void:
 	for key in room_walls:
 		room_walls[key].enabled = true
-
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
 	EventBus.on_player_room_entered.emit(self)

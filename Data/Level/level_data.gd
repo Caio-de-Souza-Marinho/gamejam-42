@@ -5,7 +5,7 @@ class_name LevelData
 # Qtd of sublevel (1-1, 1-2, 1-3, 1-4, 2-1, ....)
 @export var num_sub_levels := 4
 # Qtd of rooms per level
-@export var num_rooms := 10
+@export var num_rooms := 4
 
 @export var room_size := Vector2i(384, 384)
 @export var room_scene: PackedScene
@@ -14,7 +14,7 @@ class_name LevelData
 @export var max_enemies_per_room := 10
 
 #Props
-@export var max_props_per_room := 8
+@export var max_props_per_room := 9
 @export var props: Array[PackedScene]
 
 # Scenes exports
