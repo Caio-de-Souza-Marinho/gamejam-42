@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://bhernyg5hnuxu"]
+
+[ext_resource type="Script" uid="uid://cln1fh0persax" path="res://Scenes/Arena/arena.gd" id="1_fp5lk"]
+[ext_resource type="Resource" uid="uid://p3gujvnw4bfv" path="res://Data/Level/level_01.tres" id="2_6o3nl"]
+
+[node name="Arena" type="Node2D" unique_id=205556929]
+script = ExtResource("1_fp5lk")
+level_data = ExtResource("2_6o3nl")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2064702034]
+position = Vector2(328, 149)
+zoom = Vector2(0.2, 0.2)
