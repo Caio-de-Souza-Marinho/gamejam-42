@@ -1,5 +1,8 @@
 extends Node2D
 
+# ---------------------- CURSOR --------------------
+@export var arena_cursor: Texture2D
+
 # -------------------- MAP GENERATION ----------------
 
 var grid: Dictionary[Vector2i, LevelRoom] = {}
@@ -13,11 +16,14 @@ var current_room: LevelRoom
 @export var level_data: LevelData
 @export var player_scene: PackedScene
 
-# ----------------------------------------------------
+# -----------------x-----------------------------------
 
 func _ready() -> void:
 	# ------ EVENTS(SIGNAL) ------
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
+	
+	# -------- CURSOR --------
+	Cursor.sprite.texture = arena_cursor
 	
 	# ------- MAP GEN ---------
 	grid_cell_size = Vector2i(
