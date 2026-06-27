@@ -21,6 +21,9 @@ var all_weapons: Dictionary[String, PackedScene] = {
 var selected_player: PlayerData
 var selected_weapon: WeaponData
 
+func _ready() -> void:
+	load_data()
+
 func get_player() -> PackedScene:
 	return all_players[selected_player.id]
 	
