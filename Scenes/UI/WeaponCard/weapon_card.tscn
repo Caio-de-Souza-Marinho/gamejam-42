@@ -14,7 +14,7 @@ stretch_mode = 5
 script = ExtResource("2_o5xhw")
 
 [node name="Icon" type="TextureRect" parent="." unique_id=497444956]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

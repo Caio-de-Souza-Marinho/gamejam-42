@@ -30,11 +30,12 @@ func _ready() -> void:
 		level_data.room_size.x + level_data.corridor_size.x,
 		level_data.room_size.y + level_data.corridor_size.y
 	)
+	load_game_selection()
 	generate_level_layout()
 	select_special_rooms()
 	create_rooms()
 	create_corridors()
-	spawn_player()
+	#spawn_player()
 	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	first_room.is_cleared = true
@@ -142,3 +143,7 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 	current_room = room
 	if not room.is_cleared:
 		room.lock_room()
+
+func load_game_selection() -> void:
+	var player = Global.get_player().instantiate()
+	add_child(player)

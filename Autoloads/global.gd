@@ -8,6 +8,17 @@ var settings: Dictionary = {
 	"fullscreen": true
 }
 
+var all_players: Dictionary[String, PackedScene] = {
+	"Dog": preload("uid://dmjkb2av14sfd"),
+	"Bunny": preload("uid://dxp70f0abog78")
+}
+
+var selected_player: PlayerData
+var selected_weapon: WeaponData
+
+func get_player() -> PackedScene:
+	return all_players[selected_player.id]
+
 func save_data() -> void:
 	var save = settings.duplicate()
 	var file = FileAccess.open(save_path, FileAccess.WRITE)

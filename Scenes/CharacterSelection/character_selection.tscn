@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://c8mdjhowjnyhe" path="res://Data/Player/player_bunny.tres" id="5_lucyy"]
 [ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="6_mfhgx"]
 [ext_resource type="Resource" uid="uid://ctqcjf2sy6p1y" path="res://Data/Weapons/weapon_uzi.tres" id="8_fxh8b"]
+[ext_resource type="AudioStream" uid="uid://dtxhputnlac6" path="res://Sounds/select-a.ogg" id="14_8nd8k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l0a85"]
 atlas = ExtResource("5_jlky6")
@@ -178,3 +179,10 @@ text = "BACK"
 label_settings = ExtResource("6_mfhgx")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="UISound" type="AudioStreamPlayer" parent="." unique_id=1172357252]
+stream = ExtResource("14_8nd8k")
+bus = &"SFX"
+
+[connection signal="pressed" from="Buttons/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]
