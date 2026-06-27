@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b03fnr33mkpai"]
+
+[ext_resource type="PackedScene" uid="uid://2m3wqyxog6qq" path="res://Scenes/Props/plant_1.tscn" id="1_lq7t8"]
+[ext_resource type="Texture2D" uid="uid://b6i0q5i8rwf7l" path="res://Sprites/Tiles/tilemap_packed.png" id="2_engwf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhv5a"]
+atlas = ExtResource("2_engwf")
+region = Rect2(48.010735, 47.852787, 16.529404, 32.219753)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lq7t8"]
+size = Vector2(16, 31)
+
+[node name="Plant2" unique_id=1515933440 instance=ExtResource("1_lq7t8")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=919414920]
+texture = SubResource("AtlasTexture_qhv5a")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1356411847]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_lq7t8")

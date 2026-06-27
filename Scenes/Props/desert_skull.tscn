@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://coyko4d0v8h6k"]
+
+[ext_resource type="PackedScene" uid="uid://2m3wqyxog6qq" path="res://Scenes/Props/plant_1.tscn" id="1_hrs0t"]
+[ext_resource type="Texture2D" uid="uid://b6i0q5i8rwf7l" path="res://Sprites/Tiles/tilemap_packed.png" id="2_frylx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4a68f"]
+atlas = ExtResource("2_frylx")
+region = Rect2(192.79912, 50.427082, 31.168427, 26.904346)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rxmey"]
+size = Vector2(31, 25.75)
+
+[node name="Desert_skull" unique_id=1515933440 instance=ExtResource("1_hrs0t")]
+
+[node name="Sprite2D" parent="." index="0" unique_id=919414920]
+texture = SubResource("AtlasTexture_4a68f")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1356411847]
+position = Vector2(-0.5, 0.125)
+shape = SubResource("RectangleShape2D_rxmey")
