@@ -6,7 +6,11 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2e8nc"]
 shader = ExtResource("2_h3pgc")
 shader_parameter/progress = 0.0
-shader_parameter/diamondPixelSize = 10.0
+shader_parameter/shake_power = 0.03
+shader_parameter/shake_block_size = 30.5
+shader_parameter/direction_r = Vector2(1, 0)
+shader_parameter/direction_g = Vector2(0.4, 1)
+shader_parameter/direction_b = Vector2(-0.7, -0.3)
 
 [node name="Transition" type="Node" unique_id=512084821]
 script = ExtResource("1_esvv7")
