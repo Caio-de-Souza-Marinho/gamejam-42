@@ -13,6 +13,7 @@ var all_players: Dictionary[String, PackedScene] = {
 	"Bunny": preload("uid://dxp70f0abog78")
 }
 
+var player_ref: Player
 var selected_player: PlayerData
 var selected_weapon: WeaponData
 
