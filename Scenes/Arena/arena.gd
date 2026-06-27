@@ -4,6 +4,7 @@ extends Node2D
 @export var arena_cursor: Texture2D
 
 @onready var map_controller: MapController = $UI/MapController
+@onready var enemy_spawner: EnemySpawner = $EnemySpawner
 
 # -------------------- MAP GENERATION ----------------
 
@@ -23,6 +24,7 @@ var current_room: LevelRoom
 func _ready() -> void:
 	# ------ EVENTS(SIGNAL) ------
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
+	EventBus.on_room_cleared.connect(_on_room_cleared)
 	
 	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
@@ -154,15 +156,18 @@ func find_coord_from_room(room: LevelRoom) -> Vector2i:
 	return Vector2i.MAX
 
 func _on_player_room_entered(room: LevelRoom) -> void:
-	if room != current_room:
-		current_room = room
+	if room == current_room: return
 	
-		var absolute_coord = find_coord_from_room(room)
-		var relativa_coord = absolute_coord - start_room_coord
-		map_controller.update_on_room_entered(relativa_coord)
-		
-		if not room.is_cleared:
-			room.lock_room()
+	current_room = room
+
+	var absolute_coord = find_coord_from_room(room)
+	var relativa_coord = absolute_coord - start_room_coord
+	map_controller.update_on_room_entered(relativa_coord)
+	
+	if not room.is_cleared:
+		room.lock_room()
+		enemy_spawner.spawn_enemies(level_data, room)
+			
 
 func load_game_selection() -> void:
 	var player: Player = Global.get_player().instantiate()
@@ -173,3 +178,8 @@ func load_game_selection() -> void:
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
 	
 	player.global_position = spawn_pos.global_position
+	Global.player_ref = player
+
+func _on_room_cleared() -> void:
+	current_room.unlock_room()
+	current_room.is_cleared = true

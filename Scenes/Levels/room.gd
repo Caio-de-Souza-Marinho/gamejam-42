@@ -38,6 +38,10 @@ func register_titles() -> void:
 	for title in title_data.get_used_cells():
 		titles.append(title)
 
+func get_free_spawn_position() -> Vector2:
+	var title_cood: Vector2i = titles.pick_random()
+	return title_data.map_to_local(title_cood)
+	
 func create_props(data: LevelData) -> void:
 	for i in data.max_props_per_room:
 		var title_coord: Vector2i = titles.pick_random()

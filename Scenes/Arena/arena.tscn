@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b5o6og4r1humu" path="res://Sprites/Weapons/Tiles/tile_0025.png" id="2_t7yvt"]
 [ext_resource type="PackedScene" uid="uid://bk017gig7dc7p" path="res://Scenes/UI/hud.tscn" id="3_6o3nl"]
 [ext_resource type="PackedScene" uid="uid://dmjkb2av14sfd" path="res://Scenes/Player/player_dog.tscn" id="4_rm3sm"]
+[ext_resource type="Script" uid="uid://cv7j2d8k25mbi" path="res://Scenes/Arena/enemy_spawner.gd" id="5_fsjwy"]
 [ext_resource type="Script" uid="uid://ckjuwyg70fet3" path="res://Scenes/UI/hud.gd" id="6_qnyor"]
 [ext_resource type="Script" uid="uid://crystyy0dfmjv" path="res://Scenes/Arena/map_controller.gd" id="7_fsjwy"]
 
@@ -13,6 +14,9 @@ script = ExtResource("1_fp5lk")
 arena_cursor = ExtResource("2_t7yvt")
 level_data = ExtResource("2_6o3nl")
 player_scene = ExtResource("4_rm3sm")
+
+[node name="EnemySpawner" type="Node2D" parent="." unique_id=356574076]
+script = ExtResource("5_fsjwy")
 
 [node name="HUD" parent="." unique_id=2009639706 instance=ExtResource("3_6o3nl")]
 

@@ -3,10 +3,14 @@
 [ext_resource type="Script" uid="uid://brbdra02r2cna" path="res://Data/Level/level_data.gd" id="1_5x5yr"]
 [ext_resource type="PackedScene" uid="uid://cynnk0env8ctb" path="res://Scenes/Levels/level_01_h_corridor.tscn" id="1_lrgif"]
 [ext_resource type="PackedScene" uid="uid://bun7voexvemp4" path="res://Scenes/Levels/level_01_room.tscn" id="1_wrwk1"]
+[ext_resource type="PackedScene" uid="uid://cc71wd3xj3i8s" path="res://Scenes/Enemy/enemy_1.tscn" id="1_xk63r"]
+[ext_resource type="PackedScene" uid="uid://d2pjx6vscd4i7" path="res://Scenes/Enemy/enemy_2.tscn" id="2_ftmta"]
 [ext_resource type="PackedScene" uid="uid://cejo4ilhh023w" path="res://Scenes/Props/plant_4.tscn" id="2_wqwp3"]
+[ext_resource type="PackedScene" uid="uid://bcqbonlv7nvyn" path="res://Scenes/Enemy/enemy_3.tscn" id="3_32iwk"]
 [ext_resource type="Script" uid="uid://duymxe1klmgsi" path="res://Data/Level/level_store_data.gd" id="3_bgbbl"]
 [ext_resource type="PackedScene" uid="uid://dp7xkdnyyuiph" path="res://Scenes/Props/plant_3.tscn" id="3_w13gu"]
 [ext_resource type="PackedScene" uid="uid://coyko4d0v8h6k" path="res://Scenes/Props/desert_skull.tscn" id="4_bvicp"]
+[ext_resource type="PackedScene" uid="uid://bo00lttgc0jdv" path="res://Scenes/Enemy/enemy_4.tscn" id="4_scddg"]
 [ext_resource type="PackedScene" uid="uid://2m3wqyxog6qq" path="res://Scenes/Props/plant_1.tscn" id="5_0wmi3"]
 [ext_resource type="PackedScene" uid="uid://bdfv4utqyog6s" path="res://Scenes/Levels/level_01_v_corridor.tscn" id="5_xaqnb"]
 [ext_resource type="PackedScene" uid="uid://b03fnr33mkpai" path="res://Scenes/Props/plant_2.tscn" id="6_ipixk"]
@@ -21,4 +25,5 @@ props = Array[PackedScene]([ExtResource("2_wqwp3"), ExtResource("3_w13gu"), ExtR
 h_corridor = ExtResource("1_lrgif")
 v_corridor = ExtResource("5_xaqnb")
 corridor_size = Vector2i(193, 192)
+enemy_scenes = Array[PackedScene]([ExtResource("1_xk63r"), ExtResource("2_ftmta"), ExtResource("3_32iwk"), ExtResource("4_scddg")])
 metadata/_custom_type_script = "uid://brbdra02r2cna"

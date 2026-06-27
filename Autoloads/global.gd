@@ -2,6 +2,10 @@ extends Node
 
 var save_path = "user://save.json"
 
+const SPAWN_MARKER_SCENE = preload("res://Scenes/Effects/spawn_marker.tscn")
+const DEAD_PARTICLE_SCENE = preload("uid://dhg2agreu5c6d")
+
+
 var settings: Dictionary = {
 	"music": true,
 	"sfx": true,
@@ -12,6 +16,8 @@ var all_players: Dictionary[String, PackedScene] = {
 	"Dog": preload("uid://dmjkb2av14sfd"),
 	"Bunny": preload("uid://dxp70f0abog78")
 }
+
+var player_ref: Player
 
 var all_weapons: Dictionary[String, PackedScene] = {
 	"Pistol": preload("uid://dq2qd67tnk5p8"),
@@ -45,3 +51,9 @@ func load_data() -> void:
 	var data = JSON.parse_string(json)
 	file.close()
 	settings = data
+
+func create_dead_particle(texture: Texture2D, pos: Vector2) -> void:
+	var particle = DEAD_PARTICLE_SCENE.instantiate() as GPUParticles2D
+	get_tree().root.add_child(particle)
+	particle.global_position = pos
+	particle.texture = texture
