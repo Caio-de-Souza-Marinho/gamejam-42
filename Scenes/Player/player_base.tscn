@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cefm7eajuecd2" path="res://Scenes/Components/health_component.tscn" id="2_kxl1r"]
 
 [node name="PlayerBase" type="CharacterBody2D" unique_id=310268074]
+collision_layer = 2
 script = ExtResource("1_jfsk2")
 
 [node name="Visuals" type="Node2D" parent="." unique_id=862894412]

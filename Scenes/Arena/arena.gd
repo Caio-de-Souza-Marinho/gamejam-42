@@ -9,14 +9,18 @@ var grid: Dictionary[Vector2i, LevelRoom] = {}
 var start_room_coord: Vector2i
 var end_room_coord: Vector2i
 var grid_cell_size: Vector2i
+ 
+var player: Player
+var current_room: LevelRoom
 
 @export var level_data: LevelData
 @export var player_scene: PackedScene
-var player: Player
 
 # -----------------x-----------------------------------
 
 func _ready() -> void:
+	# ------ EVENTS(SIGNAL) ------
+	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	
 	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
@@ -31,6 +35,9 @@ func _ready() -> void:
 	create_rooms()
 	create_corridors()
 	spawn_player()
+	
+	var first_room: LevelRoom = grid[Vector2i.ZERO]
+	first_room.is_cleared = true
 	# ------------------------
 
 func spawn_player() -> void:
@@ -130,3 +137,8 @@ func find_farthest_room() ->  Vector2i:
 			max_dist = dist
 			farthest_room_cord = room_coord
 	return farthest_room_cord
+	
+func _on_player_room_entered(room: LevelRoom) -> void:
+	current_room = room
+	if not room.is_cleared:
+		room.lock_room()
