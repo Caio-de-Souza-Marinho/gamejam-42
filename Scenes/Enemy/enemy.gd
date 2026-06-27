@@ -16,14 +16,35 @@ class_name Enemy
 @onready var health_bar: ProgressBar = $HealthBar
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var enemy_detector: Area2D = $EnemyDetector
+#@onready var weapon_controller: WeaponController = $WeaponController
+@onready var weapon_controller: WeaponController = get_node_or_null("WeaponController")
 
 var can_move: bool = true
 var is_killed: bool = false
+var cooldown: float
 
 func _ready() -> void:
 	health_bar.value = 1.0
 	health_component.init_health(max_health)
 	
+	if not weapon: return
+	weapon_controller.equip_weapon(weapon)
+
+func _process(delta: float) -> void:
+	if not Global.player_ref: return
+	rotate_enemy()
+	manage_weapon(delta)
+
+func manage_weapon(delta: float) -> void:
+	if not weapon: return
+	if not weapon_controller: return
+	weapon_controller.target_pos = Global.player_ref.global_position
+	weapon_controller.rotate_weapon()
+	
+	cooldown -= delta
+	if cooldown <= 0:
+		weapon_controller.current_weapon.use_weapon()
+		cooldown = weapon_controller.current_weapon.data.cooldown
 
 func _physics_process(delta: float) -> void:
 	if not Global.player_ref: return
