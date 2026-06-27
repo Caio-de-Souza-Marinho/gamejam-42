@@ -1,7 +1,7 @@
 extends CanvasLayer
 class_name HUD
 
-@onready var health_bar: TextureProgressBar = %HealthBar
+@onready var health_bar: TextureProgressBar = find_child("HealthBar")
 
 func _ready() -> void:
 	EventBus.on_player_health_updated.connect(_on_player_health_updated)
