@@ -61,6 +61,8 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
 func _on_health_component_on_unit_dead() -> void:
 	enemy_dead() # Replace with function body.
 
-
 func _on_health_component_on_unit_damaged(amount: float) -> void:
 	health_bar.value = health_component.current_health / max_health
+	anim_sprite.material = Global.HIT_MATERIAL
+	await get_tree().create_timer(0.1).timeout
+	anim_sprite.material = null

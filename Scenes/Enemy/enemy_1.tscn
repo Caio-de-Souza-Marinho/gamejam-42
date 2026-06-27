@@ -40,10 +40,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8m2ed"]
-radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_45oeo"]
-radius = 7.0
+radius = 9.055386
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqetf"]
 radius = 28.01785
@@ -65,7 +64,6 @@ texture = ExtResource("2_iqetf")
 
 [node name="AnimSprite" type="AnimatedSprite2D" parent="." unique_id=480237589]
 position = Vector2(0, -12)
-scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_bhj4b")
 animation = &"move"
 autoplay = "move"
@@ -104,7 +102,7 @@ offset_bottom = -16.0
 theme_override_styles/background = SubResource("StyleBoxFlat_scg6k")
 theme_override_styles/fill = SubResource("StyleBoxFlat_kdhqq")
 max_value = 1.0
-value = 0.5
+value = 1.0
 show_percentage = false
 
 [node name="HealthComponent" parent="." unique_id=2114627261 instance=ExtResource("8_iqetf")]

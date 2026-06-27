@@ -44,6 +44,9 @@ size = Vector2(16, 18)
 [node name="AnimSprite" parent="." index="1" unique_id=480237589]
 sprite_frames = SubResource("SpriteFrames_ukm2e")
 
+[node name="CollisionShape2D" parent="." index="2" unique_id=1815814606]
+position = Vector2(0, -8)
+
 [node name="CollisionShape2D" parent="PlayerDetector" parent_id_path=PackedInt32Array(443571034) index="0" unique_id=972143763]
 position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_ltq7f")
