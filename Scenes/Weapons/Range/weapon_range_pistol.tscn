@@ -12,4 +12,4 @@ position = Vector2(12, 0)
 texture = ExtResource("2_cidpj")
 
 [node name="Marker2D" parent="Pivot" parent_id_path=PackedInt32Array(1394115256) index="1" unique_id=170034552]
-position = Vector2(20, 0)
+position = Vector2(19.333334, 0)

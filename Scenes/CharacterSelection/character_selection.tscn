@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://bkg6ibrrwhnif"]
 
+[ext_resource type="Script" uid="uid://c3fidbtumfcif" path="res://Scenes/CharacterSelection/character_selection.gd" id="1_lcods"]
 [ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="1_mr0lq"]
 [ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="2_8tu12"]
+[ext_resource type="Script" uid="uid://d1n145hcp6tjk" path="res://Data/Player/player_data.gd" id="2_l0a85"]
 [ext_resource type="PackedScene" uid="uid://bdxtwkeuh8oa6" path="res://Scenes/UI/PlayerCard/player_card.tscn" id="3_jlky6"]
+[ext_resource type="Resource" uid="uid://b7l537j1il583" path="res://Data/Player/player_dog.tres" id="3_lucyy"]
 [ext_resource type="PackedScene" uid="uid://lo1pyqpcogwy" path="res://Scenes/UI/WeaponCard/weapon_card.tscn" id="4_8tu12"]
+[ext_resource type="Script" uid="uid://c3dvfcxt8vg6h" path="res://Data/Weapons/weapon_data.gd" id="4_fxh8b"]
+[ext_resource type="Resource" uid="uid://ddo36n5pg2rlq" path="res://Data/Weapons/weapon_pistol.tres" id="5_8nd8k"]
 [ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="5_jlky6"]
+[ext_resource type="Resource" uid="uid://c8mdjhowjnyhe" path="res://Data/Player/player_bunny.tres" id="5_lucyy"]
 [ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="6_mfhgx"]
+[ext_resource type="Resource" uid="uid://ctqcjf2sy6p1y" path="res://Data/Weapons/weapon_uzi.tres" id="8_fxh8b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0a85"]
+atlas = ExtResource("5_jlky6")
+region = Rect2(80, 65, 15, 14)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mfhgx"]
 atlas = ExtResource("5_jlky6")
@@ -22,6 +33,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lcods")
+selection_cursor = SubResource("AtlasTexture_l0a85")
+players = Array[ExtResource("2_l0a85")]([ExtResource("3_lucyy"), ExtResource("5_lucyy")])
+weapons = Array[ExtResource("4_fxh8b")]([ExtResource("5_8nd8k"), ExtResource("8_fxh8b")])
 
 [node name="Background" parent="." unique_id=505412356 instance=ExtResource("1_mr0lq")]
 layout_mode = 1
@@ -36,7 +51,7 @@ offset_top = 10.0
 offset_right = 226.5
 offset_bottom = 58.0
 grow_horizontal = 2
-text = "Character Selection"
+text = "CHARACTER SELECTION"
 label_settings = ExtResource("2_8tu12")
 
 [node name="PlayerContainer" type="HBoxContainer" parent="." unique_id=380887571]
