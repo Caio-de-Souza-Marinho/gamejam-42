@@ -11,6 +11,7 @@ const WEAPON_CARD_SCENE = preload("uid://lo1pyqpcogwy")
 @onready var player_container: HBoxContainer = $PlayerContainer
 @onready var weapon_container: HBoxContainer = $WeaponContainer
 @onready var ui_sound: AudioStreamPlayer = $UISound
+@onready var hover_sound: AudioStreamPlayer = $HoverSound
 
 func _ready() -> void:
 	Cursor.sprite.texture = selection_cursor
@@ -49,3 +50,9 @@ func _on_player_card_pressed(data: PlayerData) -> void:
 func _on_weapon_card_pressed(data: WeaponData) -> void:
 	ui_sound.play()
 	Global.selected_weapon = data
+
+func _on_play_button_mouse_entered() -> void:
+	hover_sound.play()
+
+func _on_back_button_mouse_entered() -> void:
+	hover_sound.play()
