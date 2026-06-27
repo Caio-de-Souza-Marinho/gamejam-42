@@ -56,8 +56,9 @@ texture = ExtResource("2_j7ddg")
 [node name="AnimatedSprite2D" parent="Visuals" index="1" unique_id=926494969]
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_it6ej")
-animation = &"idle"
+animation = &"dead"
 autoplay = "idle"
+frame_progress = 1.0
 
 [node name="CollisionShape2D" parent="." index="1" unique_id=198872009]
 position = Vector2(0, -8)

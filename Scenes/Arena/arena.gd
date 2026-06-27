@@ -8,6 +8,8 @@ var end_room_coord: Vector2i
 var grid_cell_size: Vector2i
 
 @export var level_data: LevelData
+@export var player_scene: PackedScene
+var player: Player
 
 # ----------------------------------------------------
 
@@ -22,8 +24,15 @@ func _ready() -> void:
 	select_special_rooms()
 	create_rooms()
 	create_corridors()
+	spawn_player()
 	# ------------------------
 
+func spawn_player() -> void:
+	player = player_scene.instantiate()
+	var start_room: LevelRoom = grid[start_room_coord]
+	player.position = start_room.position + Vector2(level_data.room_size) / 2.0
+	add_child(player)
+	
 func generate_level_layout() -> void:
 	grid.clear()
 
