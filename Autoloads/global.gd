@@ -7,6 +7,7 @@ const DAMAGE_TEXT_SCENE = preload("res://Scenes/Extract/damage_text.tscn")
 
 const SPAWN_MARKER_SCENE = preload("res://Scenes/Effects/spawn_marker.tscn")
 const DEAD_PARTICLE_SCENE = preload("uid://dhg2agreu5c6d")
+const HIT_MATERIAL = preload("uid://delosluq2m501")
 
 const PORTAL_SCENE = preload("res://Scenes/Extract/portal.tscn")
 
@@ -32,6 +33,7 @@ var all_weapons: Dictionary[String, PackedScene] = {
 
 var selected_player: PlayerData
 var selected_weapon: WeaponData
+var coins: float
 
 func _ready() -> void:
 	load_data()

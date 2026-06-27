@@ -6,6 +6,8 @@ extends Node2D
 
 @onready var map_controller: MapController = $UI/MapController
 @onready var enemy_spawner: EnemySpawner = $EnemySpawner
+@onready var total_coins: Label = %TotalCoins
+@onready var coin_sound: AudioStreamPlayer = $CoinSound
 
 @onready var dungeon: Node2D = $Dungeon
 
@@ -32,6 +34,7 @@ func _ready() -> void:
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	EventBus.on_room_cleared.connect(_on_room_cleared)
 	EventBus.on_portal_reached.connect(_on_portal_reached)
+	EventBus.on_coin_picked.connect(_on_coin_picked)
 	
 	level_data = levels[0]
 	# -------- CURSOR --------
@@ -192,7 +195,10 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 		enemy_spawner.spawn_enemies(level_data, room)
 
 func load_game_selection() -> void:
-	var player_i: Player = Global.get_player().instantiate()
+	var player: Player = Global.get_player().instantiate()
+	add_child(player)
+	player.weapon_controller.equip_weapon(Global.selected_weapon)
+	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
 	add_child(player_i)
@@ -221,3 +227,5 @@ func _on_portal_reached() -> void:
 			Transition.transition_to("res://Scenes/UI/main_menu.tscn")
 	
 	await Transition.show_transition_out().finished
+func _on_coin_picked() -> void:
+	coin_sound.play()

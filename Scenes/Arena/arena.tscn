@@ -9,6 +9,9 @@
 [ext_resource type="Script" uid="uid://cv7j2d8k25mbi" path="res://Scenes/Arena/enemy_spawner.gd" id="5_fsjwy"]
 [ext_resource type="Script" uid="uid://ckjuwyg70fet3" path="res://Scenes/UI/hud.gd" id="6_qnyor"]
 [ext_resource type="Script" uid="uid://crystyy0dfmjv" path="res://Scenes/Arena/map_controller.gd" id="7_fsjwy"]
+[ext_resource type="Texture2D" uid="uid://cnkiu5jecgwsr" path="res://Sprites/coin.png" id="9_0ibrr"]
+[ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="10_vgwd8"]
+[ext_resource type="AudioStream" uid="uid://ba0dl85nv328f" path="res://Sounds/coin-c.ogg" id="11_xt8pn"]
 
 [node name="Arena" type="Node2D" unique_id=205556929]
 script = ExtResource("1_fp5lk")
@@ -21,11 +24,11 @@ player_scene = ExtResource("4_rm3sm")
 [node name="EnemySpawner" type="Node2D" parent="." unique_id=356574076]
 script = ExtResource("5_fsjwy")
 
-[node name="HUD" parent="." unique_id=2009639706 instance=ExtResource("3_6o3nl")]
-
 [node name="UI" type="CanvasLayer" parent="." unique_id=1281879060]
 script = ExtResource("6_qnyor")
 metadata/_custom_type_script = "uid://ckjuwyg70fet3"
+
+[node name="HUD" parent="UI" unique_id=2009639706 instance=ExtResource("3_6o3nl")]
 
 [node name="MapController" type="Control" parent="UI" unique_id=1963855698]
 custom_minimum_size = Vector2(120, 120)
@@ -37,3 +40,40 @@ offset_left = -120.0
 offset_bottom = 120.0
 grow_horizontal = 0
 script = ExtResource("7_fsjwy")
+
+[node name="Coins" type="Control" parent="UI" unique_id=1908467014]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 23.0
+offset_right = 48.0
+offset_bottom = 43.0
+
+[node name="TextureRect" type="TextureRect" parent="UI/Coins" unique_id=1235505605]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -8.0
+offset_right = 16.0
+offset_bottom = 8.0
+grow_vertical = 2
+texture = ExtResource("9_0ibrr")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TotalCoins" type="Label" parent="UI/Coins" unique_id=96604933]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 18.0
+offset_right = 58.0
+offset_bottom = 23.0
+text = "50"
+label_settings = ExtResource("10_vgwd8")
+vertical_alignment = 1
+
+[node name="CoinSound" type="AudioStreamPlayer" parent="." unique_id=991130440]
+stream = ExtResource("11_xt8pn")
+bus = &"SFX"

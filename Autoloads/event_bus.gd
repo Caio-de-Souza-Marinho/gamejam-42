@@ -6,3 +6,5 @@ signal on_portal_reached
 
 signal on_enemy_die
 signal on_room_cleared
+
+signal on_coin_picked

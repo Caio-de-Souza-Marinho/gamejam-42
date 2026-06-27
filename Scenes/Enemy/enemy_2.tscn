@@ -52,8 +52,7 @@ max_health = 6.0
 sprite_frames = SubResource("SpriteFrames_ou7wb")
 
 [node name="CollisionShape2D" parent="." index="2" unique_id=1815814606]
-position = Vector2(1, -11)
-shape = SubResource("RectangleShape2D_3oo0a")
+position = Vector2(0, -10)
 
 [node name="CollisionShape2D" parent="PlayerDetector" parent_id_path=PackedInt32Array(443571034) index="0" unique_id=972143763]
 position = Vector2(1, -11)
