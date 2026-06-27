@@ -32,11 +32,11 @@ func _ready() -> void:
 		level_data.room_size.x + level_data.corridor_size.x,
 		level_data.room_size.y + level_data.corridor_size.y
 	)
-	load_game_selection()
 	generate_level_layout()
 	select_special_rooms()
 	create_rooms()
 	create_corridors()
+	load_game_selection()
 	#spawn_player()
 	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
