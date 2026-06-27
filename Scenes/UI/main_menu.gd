@@ -12,7 +12,6 @@ class_name MainMenu
 @onready var hover_sound: AudioStreamPlayer = $HoverSound
 
 func _ready() -> void:
-	Global.load_data()
 	Cursor.sprite.texture = menu_cursor
 	update_audio_bus("Music", music_label, Global.settings.music)
 	update_audio_bus("SFX", sfx_label, Global.settings.sfx)
