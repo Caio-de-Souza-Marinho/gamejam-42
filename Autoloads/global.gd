@@ -18,11 +18,23 @@ var all_players: Dictionary[String, PackedScene] = {
 }
 
 var player_ref: Player
+
+var all_weapons: Dictionary[String, PackedScene] = {
+	"Pistol": preload("uid://dq2qd67tnk5p8"),
+	"Uzi": preload("uid://ddsebnxllynxw")
+}
+
 var selected_player: PlayerData
 var selected_weapon: WeaponData
 
+func _ready() -> void:
+	load_data()
+
 func get_player() -> PackedScene:
 	return all_players[selected_player.id]
+	
+func get_weapon() -> PackedScene:
+	return all_weapons[selected_weapon.weapon_name]
 
 func save_data() -> void:
 	var save = settings.duplicate()
