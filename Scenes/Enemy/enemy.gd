@@ -73,7 +73,7 @@ func enemy_dead() -> void:
 	
 	is_killed = true
 	#Global.create_dead_particle(dead_texture, global_position)
-	#EventBus.on_enemy_die.emit()
+	EventBus.on_enemy_die.emit()
 	queue_free()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
