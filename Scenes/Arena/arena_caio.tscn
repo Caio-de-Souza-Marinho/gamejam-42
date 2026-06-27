@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cka4e18vx6c5s"]
+
+[ext_resource type="PackedScene" uid="uid://dmjkb2av14sfd" path="res://Scenes/Player/player_dog.tscn" id="1_8nb4r"]
+
+[node name="arena_caio" type="Node2D" unique_id=1783263634]
+
+[node name="PlayerDog" parent="." unique_id=310268074 instance=ExtResource("1_8nb4r")]
