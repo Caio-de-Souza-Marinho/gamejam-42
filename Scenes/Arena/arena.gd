@@ -3,6 +3,8 @@ extends Node2D
 # ---------------------- CURSOR --------------------
 @export var arena_cursor: Texture2D
 
+@onready var map_controller: MapController = $UI/MapController
+
 # -------------------- MAP GENERATION ----------------
 
 var grid: Dictionary[Vector2i, LevelRoom] = {}
@@ -86,6 +88,7 @@ func create_rooms() -> void:
 		var room_instance: LevelRoom = level_data.room_scene.instantiate()
 		room_instance.position = room_coord * grid_cell_size
 		add_child(room_instance)
+		room_instance.create_props(level_data)
 		
 		grid[room_coord] = room_instance
 		connect_rooms(room_coord, room_instance)
@@ -137,8 +140,20 @@ func find_farthest_room() ->  Vector2i:
 			max_dist = dist
 			farthest_room_cord = room_coord
 	return farthest_room_cord
-	
+
+func find_coord_from_room(room: LevelRoom) -> Vector2i:
+	for coord: Vector2i in grid:
+		if grid[coord] == room:
+			return coord
+	return Vector2i.MAX
+
 func _on_player_room_entered(room: LevelRoom) -> void:
-	current_room = room
-	if not room.is_cleared:
-		room.lock_room()
+	if room != current_room:
+		current_room = room
+	
+		var absolute_coord = find_coord_from_room(room)
+		var relativa_coord = absolute_coord - start_room_coord
+		map_controller.update_on_room_entered(relativa_coord)
+		
+		if not room.is_cleared:
+			room.lock_room()
