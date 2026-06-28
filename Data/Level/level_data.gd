@@ -3,7 +3,7 @@ extends Resource
 class_name LevelData
 
 # Qtd of sublevel (1-1, 1-2, 1-3, 1-4, 2-1, ....)
-@export var num_sub_levels := 4
+@export var num_sub_levels := 6
 # Qtd of rooms per level
 @export var num_rooms := 4
 

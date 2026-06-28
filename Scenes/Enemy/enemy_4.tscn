@@ -38,9 +38,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqcrg"]
-size = Vector2(31, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5c6f1"]
 size = Vector2(31, 32)
 
