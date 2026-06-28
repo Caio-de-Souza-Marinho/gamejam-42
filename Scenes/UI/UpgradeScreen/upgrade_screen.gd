@@ -10,10 +10,10 @@ const _FONT_48   := preload("res://Extra/font_48.tres")
 
 # value_pct: percentagem base; escala +8% por portal cruzado
 const _UPGRADES := [
-	{type = "damage",   label = "DANO",      value_pct = 0.30, price_base = 3},
-	{type = "hp",       label = "VIDA",       value_pct = 0.40, price_base = 3},
-	{type = "speed",    label = "VELOCIDADE", value_pct = 0.15, price_base = 2},
-	{type = "cooldown", label = "CADÊNCIA",   value_pct = 0.20, price_base = 4},
+	{type = "damage",   label = "DAMAGE",    value_pct = 0.30, price_base = 3},
+	{type = "hp",       label = "HEALTH",    value_pct = 0.40, price_base = 3},
+	{type = "speed",    label = "SPEED",     value_pct = 0.15, price_base = 2},
+	{type = "cooldown", label = "FIRE RATE", value_pct = 0.20, price_base = 4},
 ]
 
 var _coins_label: Label
@@ -71,8 +71,8 @@ func _build_ui() -> void:
 	row.add_theme_constant_override("separation", 20)
 	row.set_anchor(SIDE_LEFT, 0.5);  row.set_anchor(SIDE_RIGHT, 0.5)
 	row.set_anchor(SIDE_TOP, 0.5);   row.set_anchor(SIDE_BOTTOM, 0.5)
-	row.offset_left = -200.0;        row.offset_right = 200.0
-	row.offset_top = -75.0;          row.offset_bottom = 75.0
+	row.offset_left = -250.0;        row.offset_right = 250.0
+	row.offset_top = -80.0;          row.offset_bottom = 80.0
 	root.add_child(row)
 
 	for upg in _UPGRADES:
@@ -87,7 +87,7 @@ func _build_ui() -> void:
 	btn.offset_left = -80.0;  btn.offset_right = 80.0
 	btn.offset_top = -75.0;   btn.offset_bottom = -30.0
 	var btn_lbl := Label.new()
-	btn_lbl.text = "CONTINUAR"
+	btn_lbl.text = "CONTINUE"
 	btn_lbl.label_settings = _FONT_16
 	btn_lbl.set_anchors_preset(Control.PRESET_FULL_RECT)
 	btn_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
@@ -99,7 +99,7 @@ func _build_ui() -> void:
 
 func _make_card(upg: Dictionary, parent: Node) -> Dictionary:
 	var card := TextureButton.new()
-	card.custom_minimum_size = Vector2(80, 130)
+	card.custom_minimum_size = Vector2(110, 140)
 	card.texture_normal = _BUTTON_BG
 	card.ignore_texture_size = true
 	card.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
@@ -163,13 +163,13 @@ func hide_screen() -> void:
 # ------------------------------------------------------------------ private --
 
 func _refresh() -> void:
-	_coins_label.text = "Moedas: %d" % int(Global.coins)
+	_coins_label.text = "Coins: %d" % int(Global.coins)
 	for meta in _card_meta:
 		var upg: Dictionary = meta.upg
 		var pct: int        = roundi(_value(upg) * 100)
 		var price: int      = _price(upg)
-		meta.stat_label.text  = "-%d%% recarga" % pct if upg.type == "cooldown" else "+%d%%" % pct
-		meta.price_label.text = "%d moedas" % price
+		meta.stat_label.text  = "-%d%% reload" % pct if upg.type == "cooldown" else "+%d%%" % pct
+		meta.price_label.text = "%d coins" % price
 		meta.card.modulate    = Color.WHITE if Global.coins >= price else Color(0.45, 0.45, 0.45, 1.0)
 
 func _on_card_pressed(card: TextureButton) -> void:
