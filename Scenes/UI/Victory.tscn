@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cusjb5rwwnjff"]
 
-[ext_resource type="Script" path="res://Scenes/UI/end_screen.gd" id="1_rvsjf"]
+[ext_resource type="Script" uid="uid://cukens2ryliis" path="res://Scenes/UI/end_screen.gd" id="1_rvsjf"]
 [ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="2_ffc32"]
 [ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_5vo0r"]
 [ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_j8jk0"]
@@ -99,7 +99,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "PLAY"
+text = "PLAY AGAIN"
 label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1

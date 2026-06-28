@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c6sb60bf47aex"]
 
-[ext_resource type="Script" path="res://Scenes/UI/end_screen.gd" id="1_aqsr4"]
+[ext_resource type="Script" uid="uid://cukens2ryliis" path="res://Scenes/UI/end_screen.gd" id="1_aqsr4"]
 [ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="2_huutb"]
 [ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_o2n0j"]
 [ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_3i1jp"]
@@ -96,7 +96,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "PLAY"
+text = "TRY AGAIN"
 label_settings = ExtResource("5_qm61i")
 horizontal_alignment = 1
 vertical_alignment = 1
