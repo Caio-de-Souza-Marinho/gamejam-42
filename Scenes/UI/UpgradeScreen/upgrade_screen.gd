@@ -8,7 +8,7 @@ const _SELECTOR  := preload("res://Sprites/Interface/Selector.png")
 const _FONT_16   := preload("res://Extra/font_16.tres")
 const _FONT_48   := preload("res://Extra/font_48.tres")
 
-# value_pct: percentagem base por upgrade; escala +8% por portal cruzado
+# value_pct: percentagem base; escala +8% por portal cruzado
 const _UPGRADES := [
 	{type = "damage",   label = "DANO",      value_pct = 0.15, price_base = 3},
 	{type = "hp",       label = "VIDA",       value_pct = 0.20, price_base = 3},
@@ -16,10 +16,10 @@ const _UPGRADES := [
 	{type = "cooldown", label = "CADÊNCIA",   value_pct = 0.10, price_base = 4},
 ]
 
-var _selected: Dictionary = {}
-var _cards: Array[TextureButton] = []
-var _card_meta: Array[Dictionary] = []   # [{stat_label, price_label, upg}]
 var _coins_label: Label
+var _card_meta: Array[Dictionary] = []   # [{card, stat_label, price_label, upg}]
+var _portals: int = 0
+var _purchases: int = 0                  # compras feitas nesta fase
 
 func _ready() -> void:
 	layer = 10
@@ -27,21 +27,21 @@ func _ready() -> void:
 	_build_ui()
 	hide()
 
-# ------------------------------------------------------------------ scaling --
+# ------------------------------------------------------------------ helpers --
 
-func _scaled_upgrades(portals: int) -> Array[Dictionary]:
-	var result: Array[Dictionary] = []
-	for upg in _UPGRADES:
-		var u: Dictionary = upg.duplicate()
-		u.value = upg.value_pct * (1.0 + portals * 0.08)
-		u.price = upg.price_base + portals
-		result.append(u)
-	return result
+func _value(upg: Dictionary) -> float:
+	return upg.value_pct * (1.0 + _portals * 0.08)
+
+func _price(upg: Dictionary) -> int:
+	# cada compra nesta fase encarece todos os upgrades em 2 moedas
+	return upg.price_base + _portals + _purchases * 2
 
 # ------------------------------------------------------------------ build UI --
 
 func _build_ui() -> void:
 	var root := Control.new()
+	# PROCESS_MODE_WHEN_PAUSED: recebe input exatamente quando o jogo está pausado
+	root.process_mode = PROCESS_MODE_WHEN_PAUSED
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(root)
 
@@ -55,40 +55,38 @@ func _build_ui() -> void:
 	title.text = "UPGRADE"
 	title.label_settings = _FONT_48
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	title.set_anchor(SIDE_LEFT, 0.0); title.set_anchor(SIDE_RIGHT, 1.0)
-	title.set_anchor(SIDE_TOP, 0.0);  title.set_anchor(SIDE_BOTTOM, 0.0)
-	title.offset_top = 20.0; title.offset_bottom = 80.0
+	title.set_anchor(SIDE_LEFT, 0.0);  title.set_anchor(SIDE_RIGHT, 1.0)
+	title.set_anchor(SIDE_TOP, 0.0);   title.set_anchor(SIDE_BOTTOM, 0.0)
+	title.offset_top = 20.0;           title.offset_bottom = 80.0
 	root.add_child(title)
 
 	_coins_label = Label.new()
 	_coins_label.label_settings = _FONT_16
 	_coins_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	_coins_label.set_anchor(SIDE_LEFT, 0.0); _coins_label.set_anchor(SIDE_RIGHT, 1.0)
-	_coins_label.set_anchor(SIDE_TOP, 0.0);  _coins_label.set_anchor(SIDE_BOTTOM, 0.0)
-	_coins_label.offset_top = 85.0; _coins_label.offset_bottom = 115.0
+	_coins_label.set_anchor(SIDE_LEFT, 0.0);  _coins_label.set_anchor(SIDE_RIGHT, 1.0)
+	_coins_label.set_anchor(SIDE_TOP, 0.0);   _coins_label.set_anchor(SIDE_BOTTOM, 0.0)
+	_coins_label.offset_top = 85.0;           _coins_label.offset_bottom = 115.0
 	root.add_child(_coins_label)
 
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 20)
-	row.set_anchor(SIDE_LEFT, 0.5); row.set_anchor(SIDE_RIGHT, 0.5)
-	row.set_anchor(SIDE_TOP, 0.5);  row.set_anchor(SIDE_BOTTOM, 0.5)
-	row.offset_left = -200.0; row.offset_right = 200.0
-	row.offset_top = -75.0;   row.offset_bottom = 75.0
+	row.set_anchor(SIDE_LEFT, 0.5);  row.set_anchor(SIDE_RIGHT, 0.5)
+	row.set_anchor(SIDE_TOP, 0.5);   row.set_anchor(SIDE_BOTTOM, 0.5)
+	row.offset_left = -200.0;        row.offset_right = 200.0
+	row.offset_top = -75.0;          row.offset_bottom = 75.0
 	root.add_child(row)
 
 	for upg in _UPGRADES:
-		var meta := _make_card(upg, row)
-		_cards.append(meta.card)
-		_card_meta.append(meta)
+		_card_meta.append(_make_card(upg, row))
 
 	var btn := TextureButton.new()
 	btn.texture_normal = _BUTTON_BG
 	btn.ignore_texture_size = true
 	btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
-	btn.set_anchor(SIDE_LEFT, 0.5);  btn.set_anchor(SIDE_RIGHT, 0.5)
-	btn.set_anchor(SIDE_TOP, 1.0);   btn.set_anchor(SIDE_BOTTOM, 1.0)
-	btn.offset_left = -80.0; btn.offset_right = 80.0
-	btn.offset_top = -75.0;  btn.offset_bottom = -30.0
+	btn.set_anchor(SIDE_LEFT, 0.5);   btn.set_anchor(SIDE_RIGHT, 0.5)
+	btn.set_anchor(SIDE_TOP, 1.0);    btn.set_anchor(SIDE_BOTTOM, 1.0)
+	btn.offset_left = -80.0;  btn.offset_right = 80.0
+	btn.offset_top = -75.0;   btn.offset_bottom = -30.0
 	var btn_lbl := Label.new()
 	btn_lbl.text = "CONTINUAR"
 	btn_lbl.label_settings = _FONT_16
@@ -134,40 +132,18 @@ func _make_card(upg: Dictionary, parent: Node) -> Dictionary:
 	price_lbl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	col.add_child(price_lbl)
 
-	var sel := TextureRect.new()
-	sel.name = "Selector"
-	sel.texture = _SELECTOR
-	sel.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	sel.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	sel.set_anchors_preset(Control.PRESET_FULL_RECT)
-	sel.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	sel.hide()
-	card.add_child(sel)
-
 	card.pressed.connect(_on_card_pressed.bind(card))
-	return {card = card, stat_label = stat_lbl, price_label = price_lbl, upg = {}}
+	return {card = card, stat_label = stat_lbl, price_label = price_lbl, upg = upg}
 
 # ------------------------------------------------------------------ public --
 
 func show_screen(portals: int = 0) -> void:
+	_portals = portals
+	_purchases = 0
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Cursor.sprite.hide()
-
-	_selected = {}
-	_coins_label.text = "Moedas: %d" % int(Global.coins)
-	for c in _cards:
-		c.get_node("Selector").hide()
-
-	var scaled := _scaled_upgrades(portals)
-	for i in _card_meta.size():
-		var meta  := _card_meta[i]
-		var upg   := scaled[i]
-		meta.upg  = upg
-		var pct   := roundi(upg.value * 100)
-		meta.stat_label.text  = "+%d%%" % pct if upg.type != "cooldown" else "-%d%% recarga" % pct
-		meta.price_label.text = "%d moedas" % upg.price
-
+	_refresh()
 	show()
 
 func hide_screen() -> void:
@@ -178,24 +154,40 @@ func hide_screen() -> void:
 
 # ------------------------------------------------------------------ private --
 
-func _on_card_pressed(card: TextureButton) -> void:
-	for c in _cards:
-		c.get_node("Selector").hide()
-	card.get_node("Selector").show()
+func _refresh() -> void:
+	_coins_label.text = "Moedas: %d" % int(Global.coins)
 	for meta in _card_meta:
-		if meta.card == card:
-			_selected = meta.upg
+		var upg   := meta.upg
+		var pct   := roundi(_value(upg) * 100)
+		var price := _price(upg)
+		meta.stat_label.text  = "-%d%% recarga" % pct if upg.type == "cooldown" else "+%d%%" % pct
+		meta.price_label.text = "%d moedas" % price
+		# escurece carta quando não tem moedas suficientes
+		meta.card.modulate = Color.WHITE if Global.coins >= price else Color(0.45, 0.45, 0.45, 1.0)
+
+func _on_card_pressed(card: TextureButton) -> void:
+	var meta: Dictionary
+	for m in _card_meta:
+		if m.card == card:
+			meta = m
 			break
+	if meta.is_empty():
+		return
+
+	var price := _price(meta.upg)
+	if Global.coins < price:
+		return
+
+	Global.coins -= price
+	_purchases += 1
+
+	match meta.upg.type:
+		"damage":   Global.upgrade_damage   += _value(meta.upg)
+		"hp":       Global.upgrade_hp       += _value(meta.upg)
+		"speed":    Global.upgrade_speed    += _value(meta.upg)
+		"cooldown": Global.upgrade_cooldown += _value(meta.upg)
+
+	_refresh()
 
 func _on_continue_pressed() -> void:
-	if not _selected.is_empty() and Global.coins >= _selected.price:
-		Global.coins -= _selected.price
-		_apply(_selected)
 	confirmed.emit()
-
-func _apply(upg: Dictionary) -> void:
-	match upg.type:
-		"damage":   Global.upgrade_damage   += upg.value
-		"hp":       Global.upgrade_hp       += upg.value
-		"speed":    Global.upgrade_speed    += upg.value
-		"cooldown": Global.upgrade_cooldown += upg.value
