@@ -20,6 +20,7 @@ var _coins_label: Label
 var _card_meta: Array[Dictionary] = []   # [{card, stat_label, price_label, upg}]
 var _portals: int = 0
 var _purchases: int = 0                  # compras feitas nesta fase
+var _frozen_player: Player               # guarda o player para restaurar depois
 
 func _ready() -> void:
 	layer = 10
@@ -40,8 +41,6 @@ func _price(upg: Dictionary) -> int:
 
 func _build_ui() -> void:
 	var root := Control.new()
-	# PROCESS_MODE_WHEN_PAUSED: recebe input exatamente quando o jogo está pausado
-	root.process_mode = PROCESS_MODE_WHEN_PAUSED
 	root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	add_child(root)
 
@@ -140,14 +139,23 @@ func _make_card(upg: Dictionary, parent: Node) -> Dictionary:
 func show_screen(portals: int = 0) -> void:
 	_portals = portals
 	_purchases = 0
-	get_tree().paused = true
+	# Desabilita o player em vez de pausar a árvore inteira.
+	# Pausar a árvore impede corrotinas em nós pausados de resumir via sinal,
+	# o que quebraria o "await upgrade_screen.confirmed" na arena.
+	_frozen_player = Global.player_ref
+	if is_instance_valid(_frozen_player):
+		_frozen_player.process_mode = PROCESS_MODE_DISABLED
+	Global.player_ref = null  # inimigos param de perseguir
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Cursor.sprite.hide()
 	_refresh()
 	show()
 
 func hide_screen() -> void:
-	get_tree().paused = false
+	if is_instance_valid(_frozen_player):
+		_frozen_player.process_mode = PROCESS_MODE_INHERIT
+	Global.player_ref = _frozen_player
+	_frozen_player = null
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	Cursor.sprite.show()
 	hide()
