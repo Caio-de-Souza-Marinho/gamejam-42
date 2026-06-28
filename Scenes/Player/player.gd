@@ -63,4 +63,4 @@ func _on_health_component_on_unit_dead() -> void:
 
 
 func _on_health_component_on_unit_healed(amount: float) -> void:
-	pass # Replace with function body.
+	EventBus.on_player_health_updated.emit(health_component.current_health, data.max_hp)
