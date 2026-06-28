@@ -81,7 +81,7 @@ func _build_ui() -> void:
 	var btn := TextureButton.new()
 	btn.texture_normal = _BUTTON_BG
 	btn.ignore_texture_size = true
-	btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+	btn.stretch_mode = TextureButton.STRETCH_SCALE
 	btn.set_anchor(SIDE_LEFT, 0.5);   btn.set_anchor(SIDE_RIGHT, 0.5)
 	btn.set_anchor(SIDE_TOP, 1.0);    btn.set_anchor(SIDE_BOTTOM, 1.0)
 	btn.offset_left = -120.0;  btn.offset_right = 120.0
