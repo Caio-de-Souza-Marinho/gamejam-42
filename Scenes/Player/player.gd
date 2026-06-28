@@ -49,10 +49,6 @@ func rotate_player() -> void:
 		else:
 			visuals.scale = Vector2(-1.25, 1.25)	
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_accept"):
-		health_component.take_damage(1)
-
 func _on_health_component_on_unit_damaged(amount: float) -> void:
 	EventBus.on_player_health_updated.emit(health_component.current_health, data.max_hp) 
 
@@ -63,7 +59,7 @@ func _on_health_component_on_unit_dead() -> void:
 	move_and_slide()
 	anim_sprite.play("dead")
 	await get_tree().create_timer(1.0).timeout
-	queue_free() # Replace with function body.
+	Transition.transition_to("res://Scenes/UI/main_menu.tscn")
 
 
 func _on_health_component_on_unit_healed(amount: float) -> void:

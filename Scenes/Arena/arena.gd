@@ -46,9 +46,13 @@ func generate_dungeon() -> void:
 	
 	for child in dungeon.get_children():
 		child.queue_free()
-	
+
 	await get_tree().process_frame
-	
+
+	current_room = null
+	map_controller.reset()
+	enemy_spawner.reset()
+
 	if player:
 		player.queue_free()
 		Global.player_ref = null

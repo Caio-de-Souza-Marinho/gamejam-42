@@ -29,6 +29,10 @@ func spawn_enemies(data: LevelData, room: LevelRoom) -> void:
 		get_parent().add_child(enemy)
 		enemy.global_position = spawn_global_pos
 	
+func reset() -> void:
+	enemies.clear()
+	enemies_killed = 0
+
 func _on_enemy_die() -> void:
 	if enemies_killed <= 0:
 		return
