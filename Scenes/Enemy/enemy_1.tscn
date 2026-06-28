@@ -45,7 +45,7 @@ animations = [{
 radius = 9.055386
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_iqetf"]
-radius = 31.0
+radius = 28.01785
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_scg6k"]
 bg_color = Color(0.34337106, 3.2789075e-07, 0.052186295, 1)
@@ -56,7 +56,6 @@ bg_color = Color(0.89183146, 0.00013055466, 0.19673446, 1)
 [node name="Enemy1" type="CharacterBody2D" unique_id=1271779719]
 collision_layer = 4
 script = ExtResource("1_45oeo")
-max_health = 2.0
 
 [node name="Shadow" type="Sprite2D" parent="." unique_id=1345902638]
 self_modulate = Color(1, 1, 1, 0.7058824)
@@ -70,23 +69,23 @@ animation = &"move"
 autoplay = "move"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1815814606]
-position = Vector2(1, -4)
-shape = SubResource("RectangleShape2D_iqetf")
+position = Vector2(0, -3)
+shape = SubResource("CircleShape2D_8m2ed")
 
 [node name="PlayerDetector" type="Area2D" parent="." unique_id=443571034]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=972143763]
-position = Vector2(1, -4)
-shape = SubResource("RectangleShape2D_scg6k")
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_45oeo")
 
 [node name="EnemyDetector" type="Area2D" parent="." unique_id=1440714875]
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" unique_id=491389231]
-position = Vector2(1, -3)
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_iqetf")
 debug_color = Color(0.9137255, 0.20392157, 0.5411765, 0.30588236)
 
