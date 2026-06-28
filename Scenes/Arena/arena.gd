@@ -5,6 +5,8 @@ extends Node2D
 
 @onready var map_controller: MapController = $UI/MapController
 @onready var enemy_spawner: EnemySpawner = $EnemySpawner
+@onready var total_coins: Label = %TotalCoins
+@onready var coin_sound: AudioStreamPlayer = $CoinSound
 
 # -------------------- MAP GENERATION ----------------
 
@@ -25,6 +27,7 @@ func _ready() -> void:
 	# ------ EVENTS(SIGNAL) ------
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	EventBus.on_room_cleared.connect(_on_room_cleared)
+	EventBus.on_coin_picked.connect(_on_coin_picked)
 	
 	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
@@ -172,7 +175,7 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 func load_game_selection() -> void:
 	var player: Player = Global.get_player().instantiate()
 	add_child(player)
-	player.weapon_controller.equip_weapon()
+	player.weapon_controller.equip_weapon(Global.selected_weapon)
 	
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
@@ -183,3 +186,6 @@ func load_game_selection() -> void:
 func _on_room_cleared() -> void:
 	current_room.unlock_room()
 	current_room.is_cleared = true
+	
+func _on_coin_picked() -> void:
+	coin_sound.play()
