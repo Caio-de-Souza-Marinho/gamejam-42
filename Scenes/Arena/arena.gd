@@ -240,7 +240,7 @@ func _on_portal_reached() -> void:
 			going_to_menu = true
 
 	if going_to_menu:
-		Transition.transition_to("res://Scenes/UI/main_menu.tscn")
+		Transition.transition_to("res://Scenes/UI/Victory/victory.tscn")
 		return
 
 	upgrade_screen.show_screen(portals_crossed)

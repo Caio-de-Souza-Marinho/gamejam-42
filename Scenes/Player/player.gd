@@ -61,7 +61,7 @@ func _on_health_component_on_unit_dead() -> void:
 	move_and_slide()
 	anim_sprite.play("dead")
 	await get_tree().create_timer(1.0).timeout
-	Transition.transition_to("res://Scenes/UI/main_menu.tscn")
+	Transition.transition_to("res://Scenes/UI/GameOver/game_over.tscn")
 
 
 func _on_health_component_on_unit_healed(amount: float) -> void:
