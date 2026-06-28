@@ -72,6 +72,11 @@ func generate_dungeon() -> void:
 	select_special_rooms()
 	create_rooms()
 	create_corridors()
+
+	# Escurece o dungeon progressivamente: branco → roxo escuro ao longo de 10 portais
+	var t := clampf(portals_crossed / 10.0, 0.0, 1.0)
+	dungeon.modulate = Color.WHITE.lerp(Color(0.35, 0.18, 0.45), t)
+
 	load_game_selection()
 	#spawn_player()
 	
@@ -203,7 +208,7 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 	
 	if not room.is_cleared:
 		room.lock_room()
-		enemy_spawner.spawn_enemies(level_data, room)
+		enemy_spawner.spawn_enemies(level_data, room, portals_crossed)
 
 func load_game_selection() -> void:
 	player = Global.get_player().instantiate()
