@@ -157,16 +157,15 @@ func hide_screen() -> void:
 func _refresh() -> void:
 	_coins_label.text = "Moedas: %d" % int(Global.coins)
 	for meta in _card_meta:
-		var upg   := meta.upg
-		var pct   := roundi(_value(upg) * 100)
-		var price := _price(upg)
+		var upg: Dictionary = meta.upg
+		var pct: int        = roundi(_value(upg) * 100)
+		var price: int      = _price(upg)
 		meta.stat_label.text  = "-%d%% recarga" % pct if upg.type == "cooldown" else "+%d%%" % pct
 		meta.price_label.text = "%d moedas" % price
-		# escurece carta quando não tem moedas suficientes
-		meta.card.modulate = Color.WHITE if Global.coins >= price else Color(0.45, 0.45, 0.45, 1.0)
+		meta.card.modulate    = Color.WHITE if Global.coins >= price else Color(0.45, 0.45, 0.45, 1.0)
 
 func _on_card_pressed(card: TextureButton) -> void:
-	var meta: Dictionary
+	var meta: Dictionary = {}
 	for m in _card_meta:
 		if m.card == card:
 			meta = m
@@ -174,18 +173,19 @@ func _on_card_pressed(card: TextureButton) -> void:
 	if meta.is_empty():
 		return
 
-	var price := _price(meta.upg)
+	var upg: Dictionary = meta.upg
+	var price: int      = _price(upg)
 	if Global.coins < price:
 		return
 
 	Global.coins -= price
 	_purchases += 1
 
-	match meta.upg.type:
-		"damage":   Global.upgrade_damage   += _value(meta.upg)
-		"hp":       Global.upgrade_hp       += _value(meta.upg)
-		"speed":    Global.upgrade_speed    += _value(meta.upg)
-		"cooldown": Global.upgrade_cooldown += _value(meta.upg)
+	match upg.type:
+		"damage":   Global.upgrade_damage   += _value(upg)
+		"hp":       Global.upgrade_hp       += _value(upg)
+		"speed":    Global.upgrade_speed    += _value(upg)
+		"cooldown": Global.upgrade_cooldown += _value(upg)
 
 	_refresh()
 
