@@ -15,6 +15,7 @@ var cooldown: float
 
 func _ready() -> void:
 	health_component.init_health(data.max_hp)
+	EventBus.on_player_health_updated.emit(data.max_hp, data.max_hp)
 	
 func _process(delta: float) -> void:
 	weapon_controller.target_pos = get_global_mouse_position()

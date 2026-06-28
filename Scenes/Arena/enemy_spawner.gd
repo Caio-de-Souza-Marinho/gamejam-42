@@ -2,17 +2,20 @@ extends Node2D
 class_name EnemySpawner
 
 var enemies: Array[Enemy] = []
-var enemies_killed: int 
+var enemies_killed: int
+var _generation := 0
 
 func _ready() -> void:
 	EventBus.on_enemy_die.connect(_on_enemy_die)
-	
+
 func spawn_enemies(data: LevelData, room: LevelRoom) -> void:
 	if data.enemy_scenes.is_empty(): return
-	
+
+	var my_gen := _generation
+
 	await get_tree().create_timer(0.5).timeout
 
-	if not is_instance_valid(room):
+	if _generation != my_gen or not is_instance_valid(room):
 		return
 
 	var amount = randi_range(data.min_enemies_per_room, data.max_enemies_per_room)
@@ -26,7 +29,7 @@ func spawn_enemies(data: LevelData, room: LevelRoom) -> void:
 		get_parent().add_child(marker)
 		await marker.get_child(0).animation_finished
 
-		if not is_instance_valid(room):
+		if _generation != my_gen or not is_instance_valid(room):
 			return
 
 		var random_scene = data.enemy_scenes.pick_random()
@@ -34,8 +37,12 @@ func spawn_enemies(data: LevelData, room: LevelRoom) -> void:
 		enemies.append(enemy)
 		get_parent().add_child(enemy)
 		enemy.global_position = spawn_global_pos
-	
+
 func reset() -> void:
+	_generation += 1
+	for enemy in enemies:
+		if is_instance_valid(enemy):
+			enemy.queue_free()
 	enemies.clear()
 	enemies_killed = 0
 

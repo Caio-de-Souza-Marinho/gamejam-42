@@ -214,20 +214,20 @@ func _on_room_cleared() -> void:
 	
 func _on_portal_reached() -> void:
 	await Transition.show_transition_in().finished
-	
+
 	if current_sub_level < level_data.num_sub_levels:
 		current_sub_level += 1
-		generate_dungeon()
+		await generate_dungeon()
 	else:
 		current_level_index += 1
 		if current_level_index < levels.size():
 			current_sub_level = 1
 			level_data = levels[current_level_index]
-			generate_dungeon()
+			await generate_dungeon()
 		else:
 			print("No more levels")
 			Transition.transition_to("res://Scenes/UI/main_menu.tscn")
-	
+
 	await Transition.show_transition_out().finished
 func _on_coin_picked() -> void:
 	coin_sound.play()
