@@ -25,6 +25,7 @@ var level_data: LevelData
 var current_level_index: int = 0
 var current_sub_level: int = 1
 var portals_crossed: int = 0
+var _current_num_rooms: int = 0
 
 var upgrade_screen: UpgradeScreen
 
@@ -68,6 +69,9 @@ func generate_dungeon() -> void:
 		level_data.room_size.x + level_data.corridor_size.x,
 		level_data.room_size.y + level_data.corridor_size.y
 	)
+	# +1 sala a cada 2 portais cruzados
+	_current_num_rooms = level_data.num_rooms + portals_crossed / 2
+
 	generate_level_layout()
 	select_special_rooms()
 	create_rooms()
@@ -84,10 +88,6 @@ func generate_dungeon() -> void:
 	first_room.is_cleared = true
 	# ------------------------
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		current_room.unlock_room()
-		
 func spawn_player() -> void:
 	player = player_scene.instantiate()
 	var start_room: LevelRoom = grid[start_room_coord]
@@ -106,7 +106,7 @@ func generate_level_layout() -> void:
 	# UP = (0, 1), DOWN = (0, -1), RIGHT = (1, 0), LEFT = (-1, 0)
 	var direction := [Vector2i.UP, Vector2i.DOWN, Vector2i.RIGHT, Vector2i.LEFT]
 	
-	while grid.size() < level_data.num_rooms:
+	while grid.size() < _current_num_rooms:
 		if randf() >  0.5:
 			current_coord = grid.keys().pick_random()
 		
