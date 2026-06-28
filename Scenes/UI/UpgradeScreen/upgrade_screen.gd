@@ -11,7 +11,7 @@ const _FONT_48   := preload("res://Extra/font_48.tres")
 # value_pct: percentagem base; escala +8% por portal cruzado
 const _UPGRADES := [
 	{type = "damage",   label = "DANO",      value_pct = 0.15, price_base = 3},
-	{type = "hp",       label = "VIDA",       value_pct = 0.20, price_base = 3},
+	{type = "hp",       label = "VIDA",       value_pct = 0.40, price_base = 3},
 	{type = "speed",    label = "VELOCIDADE", value_pct = 0.10, price_base = 2},
 	{type = "cooldown", label = "CADÊNCIA",   value_pct = 0.10, price_base = 4},
 ]
