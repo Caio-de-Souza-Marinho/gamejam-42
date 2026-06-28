@@ -199,7 +199,7 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 		enemy_spawner.spawn_enemies(level_data, room)
 
 func load_game_selection() -> void:
-	var player: Player = Global.get_player().instantiate()
+	player = Global.get_player().instantiate()
 	add_child(player)
 
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
