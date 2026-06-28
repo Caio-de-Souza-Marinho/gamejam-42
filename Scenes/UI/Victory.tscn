@@ -1,23 +1,23 @@
-[gd_scene format=3 uid="uid://d3bwsesg3jm6t"]
+[gd_scene format=3 uid="uid://cusjb5rwwnjff"]
 
-[ext_resource type="Script" uid="uid://c4wgec6vbbfsp" path="res://Scenes/UI/main_menu.gd" id="1_5wsvm"]
-[ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_4pqbp"]
-[ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_u7lva"]
-[ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="5_4pqbp"]
-[ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="6_gih0s"]
-[ext_resource type="AudioStream" uid="uid://dtxhputnlac6" path="res://Sounds/select-a.ogg" id="7_gih0s"]
-[ext_resource type="AudioStream" uid="uid://dlyw3ke5ldgn7" path="res://Sounds/button_hover.wav" id="7_k33u3"]
+[ext_resource type="Script" uid="uid://cukens2ryliis" path="res://Scenes/UI/end_screen.gd" id="1_rvsjf"]
+[ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="2_ffc32"]
+[ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_5vo0r"]
+[ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_j8jk0"]
+[ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="5_tsk0s"]
+[ext_resource type="AudioStream" uid="uid://dtxhputnlac6" path="res://Sounds/select-a.ogg" id="6_dc284"]
+[ext_resource type="AudioStream" uid="uid://dlyw3ke5ldgn7" path="res://Sounds/button_hover.wav" id="7_sh2an"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gih0s"]
-atlas = ExtResource("5_4pqbp")
+atlas = ExtResource("2_ffc32")
 region = Rect2(80, 65, 15, 13)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k33u3"]
-atlas = ExtResource("5_4pqbp")
+atlas = ExtResource("2_ffc32")
 region = Rect2(112, 48, 48.78456, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lrjdf"]
-atlas = ExtResource("5_4pqbp")
+atlas = ExtResource("2_ffc32")
 region = Rect2(176, 48, 48, 16)
 
 [node name="MainMenu" type="Control" unique_id=1098745774]
@@ -27,10 +27,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5wsvm")
+script = ExtResource("1_rvsjf")
 menu_cursor = SubResource("AtlasTexture_gih0s")
 
-[node name="Background" parent="." unique_id=505412356 instance=ExtResource("3_4pqbp")]
+[node name="Background" parent="." unique_id=505412356 instance=ExtResource("3_5vo0r")]
 layout_mode = 1
 
 [node name="Title" type="Label" parent="." unique_id=1350493663]
@@ -43,9 +43,8 @@ offset_top = 10.0
 offset_right = 79.0
 offset_bottom = 109.0
 grow_horizontal = 2
-text = "GLITCH
-DUNGEON"
-label_settings = ExtResource("4_u7lva")
+text = "Victory"
+label_settings = ExtResource("4_j8jk0")
 horizontal_alignment = 1
 
 [node name="MainButtons" type="Control" parent="." unique_id=94850131]
@@ -100,8 +99,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "PLAY"
-label_settings = ExtResource("6_gih0s")
+text = "PLAY AGAIN"
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -134,7 +133,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "SETTINGS"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -167,7 +166,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -225,7 +224,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "MUSIC: ON"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -259,7 +258,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "SFX: ON"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -293,7 +292,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "WINDOWED"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -326,16 +325,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "BACK"
-label_settings = ExtResource("6_gih0s")
+label_settings = ExtResource("5_tsk0s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="UISound" type="AudioStreamPlayer" parent="." unique_id=94542221]
-stream = ExtResource("7_gih0s")
+stream = ExtResource("6_dc284")
 bus = &"SFX"
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=2115638222]
-stream = ExtResource("7_k33u3")
+stream = ExtResource("7_sh2an")
 bus = &"SFX"
 
 [connection signal="mouse_entered" from="MainButtons/VBoxContainer/Play/PlayButton" to="." method="_on_button_mouse_entered"]

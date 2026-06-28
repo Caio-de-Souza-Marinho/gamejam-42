@@ -24,21 +24,29 @@ var level_data: LevelData
 
 var current_level_index: int = 0
 var current_sub_level: int = 1
+var portals_crossed: int = 0
+var _current_num_rooms: int = 0
+
+var upgrade_screen: UpgradeScreen
 
 @export var player_scene: PackedScene
 
 # -----------------x-----------------------------------
 
 func _ready() -> void:
-	# ------ EVENTS(SIGNAL) ------
+	Global.reset_run()
+
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	EventBus.on_room_cleared.connect(_on_room_cleared)
 	EventBus.on_portal_reached.connect(_on_portal_reached)
 	EventBus.on_coin_picked.connect(_on_coin_picked)
-	
+
 	level_data = levels[0]
-	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
+
+	upgrade_screen = UpgradeScreen.new()
+	add_child(upgrade_screen)
+
 	generate_dungeon()
 
 
@@ -46,9 +54,13 @@ func generate_dungeon() -> void:
 	
 	for child in dungeon.get_children():
 		child.queue_free()
-	
+
 	await get_tree().process_frame
-	
+
+	current_room = null
+	map_controller.reset()
+	enemy_spawner.reset()
+
 	if player:
 		player.queue_free()
 		Global.player_ref = null
@@ -57,10 +69,18 @@ func generate_dungeon() -> void:
 		level_data.room_size.x + level_data.corridor_size.x,
 		level_data.room_size.y + level_data.corridor_size.y
 	)
+	# +1 sala a cada 2 portais cruzados
+	_current_num_rooms = level_data.num_rooms + portals_crossed / 2
+
 	generate_level_layout()
 	select_special_rooms()
 	create_rooms()
 	create_corridors()
+
+	# Escurece o dungeon progressivamente: branco → roxo escuro ao longo de 10 portais
+	var t := clampf(portals_crossed / 10.0, 0.0, 1.0)
+	dungeon.modulate = Color.WHITE.lerp(Color(0.35, 0.18, 0.45), t)
+
 	load_game_selection()
 	#spawn_player()
 	
@@ -68,10 +88,6 @@ func generate_dungeon() -> void:
 	first_room.is_cleared = true
 	# ------------------------
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		current_room.unlock_room()
-		
 func spawn_player() -> void:
 	player = player_scene.instantiate()
 	var start_room: LevelRoom = grid[start_room_coord]
@@ -90,7 +106,7 @@ func generate_level_layout() -> void:
 	# UP = (0, 1), DOWN = (0, -1), RIGHT = (1, 0), LEFT = (-1, 0)
 	var direction := [Vector2i.UP, Vector2i.DOWN, Vector2i.RIGHT, Vector2i.LEFT]
 	
-	while grid.size() < level_data.num_rooms:
+	while grid.size() < _current_num_rooms:
 		if randf() >  0.5:
 			current_coord = grid.keys().pick_random()
 		
@@ -192,19 +208,17 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 	
 	if not room.is_cleared:
 		room.lock_room()
-		enemy_spawner.spawn_enemies(level_data, room)
+		enemy_spawner.spawn_enemies(level_data, room, portals_crossed)
 
 func load_game_selection() -> void:
-	var player: Player = Global.get_player().instantiate()
+	player = Global.get_player().instantiate()
 	add_child(player)
-	player.weapon_controller.equip_weapon(Global.selected_weapon)
-	
+
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
-	add_child(player_i)
-	player_i.global_position = spawn_pos.global_position
-	player_i.weapon_controller.equip_weapon()
-	Global.player_ref = player_i
+	player.global_position = spawn_pos.global_position
+	player.weapon_controller.equip_weapon(Global.selected_weapon)
+	Global.player_ref = player
 
 func _on_room_cleared() -> void:
 	current_room.unlock_room()
@@ -212,20 +226,32 @@ func _on_room_cleared() -> void:
 	
 func _on_portal_reached() -> void:
 	await Transition.show_transition_in().finished
-	
+
+	# Atualiza estado do nível antes de mostrar a tela de upgrade
+	var going_to_menu := false
 	if current_sub_level < level_data.num_sub_levels:
 		current_sub_level += 1
-		generate_dungeon()
 	else:
 		current_level_index += 1
 		if current_level_index < levels.size():
 			current_sub_level = 1
 			level_data = levels[current_level_index]
-			generate_dungeon()
 		else:
-			print("No more levels")
-			Transition.transition_to("res://Scenes/UI/main_menu.tscn")
-	
+			going_to_menu = true
+
+	if going_to_menu:
+		Transition.transition_to("res://Scenes/UI/Victory.tscn")
+		return
+
+	upgrade_screen.show_screen(portals_crossed)
+	portals_crossed += 1
+	await Transition.show_transition_out().finished
+	await upgrade_screen.confirmed
+
+	await Transition.show_transition_in().finished
+	upgrade_screen.hide_screen()
+	await generate_dungeon()
 	await Transition.show_transition_out().finished
 func _on_coin_picked() -> void:
 	coin_sound.play()
+	total_coins.text = str(Global.coins)

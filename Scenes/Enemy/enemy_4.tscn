@@ -38,9 +38,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqcrg"]
-size = Vector2(31, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5c6f1"]
 size = Vector2(31, 32)
 
@@ -56,6 +53,6 @@ position = Vector2(0, -8)
 
 [node name="CollisionShape2D" parent="PlayerDetector" parent_id_path=PackedInt32Array(443571034) index="0" unique_id=972143763]
 position = Vector2(0, -9)
-shape = SubResource("RectangleShape2D_ltq7f")
+shape = SubResource("RectangleShape2D_5c6f1")
 
 [node name="WeaponController" parent="." index="8" unique_id=500523437 instance=ExtResource("6_5c6f1")]
