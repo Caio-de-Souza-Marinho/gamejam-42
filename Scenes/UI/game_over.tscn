@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://c6sb60bf47aex"]
+
+[ext_resource type="Script" path="res://Scenes/UI/end_screen.gd" id="1_aqsr4"]
+[ext_resource type="Texture2D" uid="uid://dy8e3xkc5qdbp" path="res://Sprites/Interface/Tilemap/tilemap_packed.png" id="2_huutb"]
+[ext_resource type="PackedScene" uid="uid://c553wj1lva1ef" path="res://Scenes/UI/background.tscn" id="3_o2n0j"]
+[ext_resource type="LabelSettings" uid="uid://bsuvpg7wrcutq" path="res://Extra/font_48.tres" id="4_3i1jp"]
+[ext_resource type="LabelSettings" uid="uid://cg1ww58fr1ktq" path="res://Extra/font_16.tres" id="5_qm61i"]
+[ext_resource type="AudioStream" uid="uid://dtxhputnlac6" path="res://Sounds/select-a.ogg" id="6_nu70l"]
+[ext_resource type="AudioStream" uid="uid://dlyw3ke5ldgn7" path="res://Sounds/button_hover.wav" id="7_vxr00"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gih0s"]
+atlas = ExtResource("2_huutb")
+region = Rect2(80, 65, 15, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k33u3"]
+atlas = ExtResource("2_huutb")
+region = Rect2(112, 48, 48.78456, 16)
+
+[node name="MainMenu" type="Control" unique_id=1098745774]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_aqsr4")
+menu_cursor = SubResource("AtlasTexture_gih0s")
+
+[node name="Background" parent="." unique_id=505412356 instance=ExtResource("3_o2n0j")]
+layout_mode = 1
+
+[node name="Title" type="Label" parent="." unique_id=1350493663]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_top = 10.0
+offset_right = 79.0
+offset_bottom = 109.0
+grow_horizontal = 2
+text = "Game
+Over"
+label_settings = ExtResource("4_3i1jp")
+horizontal_alignment = 1
+
+[node name="MainButtons" type="Control" parent="." unique_id=94850131]
+custom_minimum_size = Vector2(350, 220)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -59.0
+offset_right = 175.0
+offset_bottom = 161.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainButtons" unique_id=1422753149]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Play" type="Control" parent="MainButtons/VBoxContainer" unique_id=751697280]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="PlayButton" type="TextureButton" parent="MainButtons/VBoxContainer/Play" unique_id=2141607309]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -24.0
+offset_right = 94.5
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_k33u3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PlayLabel" type="Label" parent="MainButtons/VBoxContainer/Play/PlayButton" unique_id=67471457]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "PLAY"
+label_settings = ExtResource("5_qm61i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Settings" type="Control" parent="MainButtons/VBoxContainer" unique_id=1353342887]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="SettingsButton" type="TextureButton" parent="MainButtons/VBoxContainer/Settings" unique_id=1666986574]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -24.0
+offset_right = 94.5
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_k33u3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="SettingsLabel" type="Label" parent="MainButtons/VBoxContainer/Settings/SettingsButton" unique_id=2025482554]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "SETTINGS"
+label_settings = ExtResource("5_qm61i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Quit" type="Control" parent="MainButtons/VBoxContainer" unique_id=1954660317]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+
+[node name="QuitButton" type="TextureButton" parent="MainButtons/VBoxContainer/Quit" unique_id=812844557]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -94.5
+offset_top = -24.0
+offset_right = 94.5
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_k33u3")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="QuitLabel" type="Label" parent="MainButtons/VBoxContainer/Quit/QuitButton" unique_id=2134461552]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
+label_settings = ExtResource("5_qm61i")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UISound" type="AudioStreamPlayer" parent="." unique_id=94542221]
+stream = ExtResource("6_nu70l")
+bus = &"SFX"
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=2115638222]
+stream = ExtResource("7_vxr00")
+bus = &"SFX"
+
+[connection signal="mouse_entered" from="MainButtons/VBoxContainer/Play/PlayButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MainButtons/VBoxContainer/Play/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="mouse_entered" from="MainButtons/VBoxContainer/Settings/SettingsButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MainButtons/VBoxContainer/Settings/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="mouse_entered" from="MainButtons/VBoxContainer/Quit/QuitButton" to="." method="_on_button_mouse_entered"]
+[connection signal="pressed" from="MainButtons/VBoxContainer/Quit/QuitButton" to="." method="_on_quit_button_pressed"]
