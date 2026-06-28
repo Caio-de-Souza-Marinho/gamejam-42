@@ -8,7 +8,7 @@
 script = ExtResource("2_d6mai")
 weapon_name = "Uzi"
 icon = ExtResource("1_ywvm0")
-damage = 0.5
+damage = 1.0
 cooldown = 0.2
 mana_cost = 1.0
 spread = 8.0
