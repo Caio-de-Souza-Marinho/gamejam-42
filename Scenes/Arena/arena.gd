@@ -197,14 +197,12 @@ func _on_player_room_entered(room: LevelRoom) -> void:
 func load_game_selection() -> void:
 	var player: Player = Global.get_player().instantiate()
 	add_child(player)
-	player.weapon_controller.equip_weapon(Global.selected_weapon)
-	
+
 	var first_room: LevelRoom = grid[Vector2i.ZERO]
 	var spawn_pos: Marker2D = first_room.player_spawn_pos
-	add_child(player_i)
-	player_i.global_position = spawn_pos.global_position
-	player_i.weapon_controller.equip_weapon()
-	Global.player_ref = player_i
+	player.global_position = spawn_pos.global_position
+	player.weapon_controller.equip_weapon(Global.selected_weapon)
+	Global.player_ref = player
 
 func _on_room_cleared() -> void:
 	current_room.unlock_room()
@@ -229,3 +227,4 @@ func _on_portal_reached() -> void:
 	await Transition.show_transition_out().finished
 func _on_coin_picked() -> void:
 	coin_sound.play()
+	total_coins.text = str(Global.coins)
