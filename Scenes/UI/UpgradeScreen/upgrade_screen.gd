@@ -84,8 +84,8 @@ func _build_ui() -> void:
 	btn.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
 	btn.set_anchor(SIDE_LEFT, 0.5);   btn.set_anchor(SIDE_RIGHT, 0.5)
 	btn.set_anchor(SIDE_TOP, 1.0);    btn.set_anchor(SIDE_BOTTOM, 1.0)
-	btn.offset_left = -80.0;  btn.offset_right = 80.0
-	btn.offset_top = -75.0;   btn.offset_bottom = -30.0
+	btn.offset_left = -120.0;  btn.offset_right = 120.0
+	btn.offset_top = -75.0;    btn.offset_bottom = -25.0
 	var btn_lbl := Label.new()
 	btn_lbl.text = "CONTINUE"
 	btn_lbl.label_settings = _FONT_16
