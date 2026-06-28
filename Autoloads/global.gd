@@ -35,6 +35,18 @@ var selected_player: PlayerData
 var selected_weapon: WeaponData
 var coins: float
 
+var upgrade_damage := 0.0
+var upgrade_hp := 0.0
+var upgrade_speed := 0.0
+var upgrade_cooldown := 0.0
+
+func reset_run() -> void:
+	coins = 0.0
+	upgrade_damage = 0.0
+	upgrade_hp = 0.0
+	upgrade_speed = 0.0
+	upgrade_cooldown = 0.0
+
 func _ready() -> void:
 	load_data()
 

@@ -25,20 +25,26 @@ var level_data: LevelData
 var current_level_index: int = 0
 var current_sub_level: int = 1
 
+var upgrade_screen: UpgradeScreen
+
 @export var player_scene: PackedScene
 
 # -----------------x-----------------------------------
 
 func _ready() -> void:
-	# ------ EVENTS(SIGNAL) ------
+	Global.reset_run()
+
 	EventBus.on_player_room_entered.connect(_on_player_room_entered)
 	EventBus.on_room_cleared.connect(_on_room_cleared)
 	EventBus.on_portal_reached.connect(_on_portal_reached)
 	EventBus.on_coin_picked.connect(_on_coin_picked)
-	
+
 	level_data = levels[0]
-	# -------- CURSOR --------
 	Cursor.sprite.texture = arena_cursor
+
+	upgrade_screen = UpgradeScreen.new()
+	add_child(upgrade_screen)
+
 	generate_dungeon()
 
 
@@ -215,19 +221,31 @@ func _on_room_cleared() -> void:
 func _on_portal_reached() -> void:
 	await Transition.show_transition_in().finished
 
+	# Atualiza estado do nível antes de mostrar a tela de upgrade
+	var going_to_menu := false
 	if current_sub_level < level_data.num_sub_levels:
 		current_sub_level += 1
-		await generate_dungeon()
 	else:
 		current_level_index += 1
 		if current_level_index < levels.size():
 			current_sub_level = 1
 			level_data = levels[current_level_index]
-			await generate_dungeon()
 		else:
-			print("No more levels")
-			Transition.transition_to("res://Scenes/UI/main_menu.tscn")
+			going_to_menu = true
 
+	if going_to_menu:
+		Transition.transition_to("res://Scenes/UI/main_menu.tscn")
+		return
+
+	# Mostra tela de upgrade enquanto a tela abre
+	upgrade_screen.show_screen()
+	await Transition.show_transition_out().finished
+	await upgrade_screen.confirmed
+
+	# Gera o novo dungeon sob a transição
+	await Transition.show_transition_in().finished
+	upgrade_screen.hide_screen()
+	await generate_dungeon()
 	await Transition.show_transition_out().finished
 func _on_coin_picked() -> void:
 	coin_sound.play()

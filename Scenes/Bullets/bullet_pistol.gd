@@ -15,6 +15,6 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	if body is Enemy or body is Player:
 		Global.create_damage_text(data.damage, body.global_position)
-		body.health_component.take_damage(data.damage)
+		body.health_component.take_damage(data.damage + Global.upgrade_damage)
 	
 	queue_free()

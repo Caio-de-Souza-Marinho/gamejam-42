@@ -14,8 +14,9 @@ var direction: Vector2
 var cooldown: float
 
 func _ready() -> void:
-	health_component.init_health(data.max_hp)
-	EventBus.on_player_health_updated.emit(data.max_hp, data.max_hp)
+	var max_hp := data.max_hp + Global.upgrade_hp
+	health_component.init_health(max_hp)
+	EventBus.on_player_health_updated.emit(max_hp, max_hp)
 	
 func _process(delta: float) -> void:
 	weapon_controller.target_pos = get_global_mouse_position()
@@ -25,7 +26,7 @@ func _process(delta: float) -> void:
 	if Input.is_action_pressed("shoot"):
 		if cooldown <= 0:
 			weapon_controller.current_weapon.use_weapon()
-			cooldown = weapon_controller.current_weapon.data.cooldown
+			cooldown = maxf(0.05, weapon_controller.current_weapon.data.cooldown - Global.upgrade_cooldown)
 
 func _physics_process(_delta: float) -> void:
 	if not can_move:
@@ -33,7 +34,7 @@ func _physics_process(_delta: float) -> void:
 	
 	direction = Input.get_vector("move_left","move_right","move_up","move_down")
 	if direction != Vector2.ZERO:
-		movement = direction * data.move_speed
+		movement = direction * (data.move_speed + Global.upgrade_speed)
 		anim_sprite.play("move")
 	else:
 		movement = Vector2.ZERO
@@ -51,7 +52,7 @@ func rotate_player() -> void:
 			visuals.scale = Vector2(-1.25, 1.25)	
 
 func _on_health_component_on_unit_damaged(amount: float) -> void:
-	EventBus.on_player_health_updated.emit(health_component.current_health, data.max_hp) 
+	EventBus.on_player_health_updated.emit(health_component.current_health, health_component.max_health) 
 
 
 func _on_health_component_on_unit_dead() -> void:
@@ -64,4 +65,4 @@ func _on_health_component_on_unit_dead() -> void:
 
 
 func _on_health_component_on_unit_healed(amount: float) -> void:
-	EventBus.on_player_health_updated.emit(health_component.current_health, data.max_hp)
+	EventBus.on_player_health_updated.emit(health_component.current_health, health_component.max_health)
