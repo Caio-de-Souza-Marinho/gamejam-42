@@ -24,6 +24,7 @@ var level_data: LevelData
 
 var current_level_index: int = 0
 var current_sub_level: int = 1
+var portals_crossed: int = 0
 
 var upgrade_screen: UpgradeScreen
 
@@ -237,12 +238,11 @@ func _on_portal_reached() -> void:
 		Transition.transition_to("res://Scenes/UI/main_menu.tscn")
 		return
 
-	# Mostra tela de upgrade enquanto a tela abre
-	upgrade_screen.show_screen()
+	upgrade_screen.show_screen(portals_crossed)
+	portals_crossed += 1
 	await Transition.show_transition_out().finished
 	await upgrade_screen.confirmed
 
-	# Gera o novo dungeon sob a transição
 	await Transition.show_transition_in().finished
 	upgrade_screen.hide_screen()
 	await generate_dungeon()
